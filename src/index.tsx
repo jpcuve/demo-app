@@ -3,7 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { RouteComponentProps } from 'react-router';
+import client from './remote';
 
+export interface PageProps extends RouteComponentProps {}
+
+client.get('/master/all-currency-groups').then((res: any) => console.log(JSON.stringify(res)))
 ReactDOM.render(
   <React.StrictMode>
     <App />
