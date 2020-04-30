@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 const HomePage: React.FC<PageProps> = props => {
     const [fetching, setFetching] = React.useState<boolean>(false)
     const [errors, setErrors] = React.useState<string[]>([])
-    const count: any = useSelector<ApplicationState>(state => state.counter)
+    const count: number = useSelector<ApplicationState, number>(state => state.counter)
     const dispatch = useDispatch()
     console.debug(`Count: ${count}`)
     return (
