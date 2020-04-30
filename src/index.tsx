@@ -7,15 +7,22 @@ import { RouteComponentProps } from 'react-router';
 import client from './remote';
 import { createStore, Reducer, Action, combineReducers, AnyAction } from 'redux';
 import { Provider } from 'react-redux';
+import { User, defaultUser } from './domain';
 
 export interface PageProps extends RouteComponentProps {}
 
 export interface ApplicationState {
   counter: number,
+  user: User,
+}
+
+const defaultApplicationState: ApplicationState = {
+  counter: 0,
+  user: defaultUser,
 }
 
 client.get('/master/all-currency-groups').then((res: any) => console.log(JSON.stringify(res)))
-const rootReducer: Reducer<ApplicationState, AnyAction> = (state = {counter: 0}, action) => {
+const rootReducer: Reducer<ApplicationState, AnyAction> = (state = defaultApplicationState, action) => {
   console.log(`User reducer is called, state: ${JSON.stringify(state)} action: ${JSON.stringify(action)}`)
   switch(action.type){
     case 'increment-counter':

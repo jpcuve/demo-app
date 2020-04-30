@@ -1,9 +1,11 @@
 import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
+import { User } from '../domain'
 
 interface Props extends RouteComponentProps {
-  fetching: boolean;
-  errors: string[];
+  fetching: boolean,
+  errors: string[],
+  user: User,
 }
 
 const Outline: React.FC<Props> = props => {
@@ -13,7 +15,8 @@ const Outline: React.FC<Props> = props => {
     props.history.push(url)
   }
   return (
-    <>
+    <div>
+      <div>User: {JSON.stringify(props.user)}</div>
       <div>Menu</div>
       <div>
         <ul style={{ color: 'red' }}>
@@ -26,7 +29,7 @@ const Outline: React.FC<Props> = props => {
           {props.fetching && <span>Fetching...</span>}
         {props.children}
       </div>
-    </>
+    </div>
   )
 }
 
