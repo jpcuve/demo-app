@@ -53,6 +53,8 @@ enum Choice {
   ResetPassword,
 }
 
+const AUTH_BASE = '/auth'
+
 const AuthPage: React.FC<RouteComponentProps> = props => {
   const { location: { search } } = props
   const token = search.length ? search.substring(1) : ''
@@ -72,7 +74,7 @@ const AuthPage: React.FC<RouteComponentProps> = props => {
     setErrors([])
     setFetching(true)
     try {
-      await client.post('/api/auth/reset-password', resetPassword)
+      await client.post(`${AUTH_BASE}/reset-password`, resetPassword)
     } catch (e) {
       setErrors([String(e)])
     } finally {
@@ -85,9 +87,9 @@ const AuthPage: React.FC<RouteComponentProps> = props => {
     setErrors([])
     setFetching(true)
     try {
-      const user: User = await client.post('/api/auth/sign-in', signIn)
+      const user: User = await client.post(`${AUTH_BASE}/sign-in`, signIn)
       updateUser(user)
-      props.history.push('/web/home')
+      props.history.push('/home')
     } catch (e) {
       setErrors([String(e)])
       setFetching(false)
@@ -98,7 +100,7 @@ const AuthPage: React.FC<RouteComponentProps> = props => {
     setFetching(true)
     try {
       await gapi.auth2.getAuthInstance().signOut();
-      const user: User = await client.get('/api/auth/sign-out')
+      const user: User = await client.get(`${AUTH_BASE}/sign-out`)
       updateUser(user)
     } catch (e) {
       setErrors([String(e)])
@@ -112,9 +114,9 @@ const AuthPage: React.FC<RouteComponentProps> = props => {
     setErrors([])
     setFetching(true)
     try {
-      const user: User = await client.post('/api/auth/sign-up', signUp)
+      const user: User = await client.post(`${AUTH_BASE}/sign-up`, signUp)
       updateUser(user)
-      props.history.push('/web/home')
+      props.history.push('/home')
     } catch (e) {
       setErrors([String(e)])
       setFetching(false)
@@ -127,7 +129,7 @@ const AuthPage: React.FC<RouteComponentProps> = props => {
     setErrors([])
     setFetching(true)
     try {
-      await client.post('/api/auth/update-password', updatePassword)
+      await client.post(`${AUTH_BASE}/update-password`, updatePassword)
     } catch (e) {
       setErrors([String(e)])
     } finally {
@@ -149,9 +151,9 @@ const AuthPage: React.FC<RouteComponentProps> = props => {
           <br/>
           <button disabled={fetching} type="submit">Reset password</button>
           <br/>
-          <a href="#" onClick={() => setChoice(Choice.SignIn)}>Sign-in</a>
+          <button onClick={() => setChoice(Choice.SignIn)}>Sign-in</button>
           &nbsp;
-          <a href="#" onClick={() => setChoice(Choice.SignUp)}>Sign-up</a>
+          <button onClick={() => setChoice(Choice.SignUp)}>Sign-up</button>
         </form>
       }
       {user.id === 0 && choice === Choice.SignIn && token === '' &&
@@ -167,9 +169,9 @@ const AuthPage: React.FC<RouteComponentProps> = props => {
           <br/>
           <button disabled={fetching} type="submit">Sign-in</button>
           <br/>
-          <a href="#" onClick={() => setChoice(Choice.SignUp)}>Sign-up</a>
+          <button onClick={() => setChoice(Choice.SignUp)}>Sign-up</button>
           &nbsp;
-          <a href="#" onClick={() => setChoice(Choice.ResetPassword)}>Reset password</a>
+          <button onClick={() => setChoice(Choice.ResetPassword)}>Reset password</button>
           <br/>
           <GoogleSignInButton scope="profile email" onSignIn={user => updateUser(user)} onFailure={e => setErrors([JSON.stringify(e)])}/>
         </form>
@@ -191,9 +193,9 @@ const AuthPage: React.FC<RouteComponentProps> = props => {
           <br/>
           <button disabled={fetching} type="submit">Sign-up</button>
           <br/>
-          <a href="#" onClick={() => setChoice(Choice.SignIn)}>Sign-in</a>
+          <button onClick={() => setChoice(Choice.SignIn)}>Sign-in</button>
           &nbsp;
-          <a href="#" onClick={() => setChoice(Choice.ResetPassword)}>Reset password</a>
+          <button onClick={() => setChoice(Choice.ResetPassword)}>Reset password</button>
         </form>
       }
       {token !== '' &&

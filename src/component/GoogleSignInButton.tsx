@@ -31,7 +31,7 @@ const GoogleSignInButton: React.FC<Props> = props => {
     console.log(`Google sign-in success: ${token}`)
     setFetching(true)
     try {
-      const user: User = await client.post('/api/auth/google-sign-in', { 'token': token })
+      const user: User = await client.post('/auth/google-sign-in', { 'token': token })
       props.onSignIn(user);
     } catch (e) {
       props.onFailure(e)
