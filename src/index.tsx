@@ -27,6 +27,8 @@ const rootReducer: Reducer<ApplicationState, AnyAction> = (state = defaultApplic
   switch(action.type){
     case 'increment-counter':
       return {...state, counter: state.counter + 1}
+    case 'update-user':
+      return {...state, user: action.user}
   }
   return state
 }
