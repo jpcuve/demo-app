@@ -1,5 +1,5 @@
 const BASE_URL = window.location.port === '3000' ? 'http://localhost:8080' : `${window.location.protocol}//${window.location.host}`
-console.log(`Base URL for RPC: ${BASE_URL}`)
+console.debug(`Base URL for RPC: ${BASE_URL}`)
 
 const client: any = {
   rpc: async function (endPoint: string, method: string = 'GET', contentType: string = '', body: any | null = null ): Promise<any> {
@@ -16,10 +16,10 @@ const client: any = {
       }
       options.body = body;
     }
-    console.log(JSON.stringify(options))
+    console.debug(JSON.stringify(options))
     const res = await fetch(`${BASE_URL}${endPoint}`, options)
     const json = await res.json()
-    console.log(JSON.stringify(json))
+    console.debug(JSON.stringify(json))
     if ('error' in json) {
       throw json.error;
     }

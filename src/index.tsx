@@ -5,13 +5,21 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { RouteComponentProps } from 'react-router';
 import client from './remote';
+import { createStore, Reducer, Action } from 'redux';
+import { Provider } from 'react-redux';
 
 export interface PageProps extends RouteComponentProps {}
 
 client.get('/master/all-currency-groups').then((res: any) => console.log(JSON.stringify(res)))
+const reducer: Reducer<any, Action> = (state, action: Action) => {
+  
+}
+const store = createStore(reducer)
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
