@@ -9,7 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={AuthPage} />
         <Route path="/auth" component={AuthPage}/>
         <Route path="/home" component={HomePage}/>
         <Route render={() => (<div>No match</div>)} />
