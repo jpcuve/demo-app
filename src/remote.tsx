@@ -7,10 +7,15 @@ const client: any = {
       method,
       headers: {
         'Accept': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2UiLCJyb2xlcyI6ImEsYixjIn0.E89yUJXwD41GWgYKIzC8Kb6AHCss2nUVcKVNqa1MsXI',
+        // 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2UiLCJyb2xlcyI6ImEsYixjIn0.E89yUJXwD41GWgYKIzC8Kb6AHCss2nUVcKVNqa1MsXI',
       },
-      credentials: 'include',
+      // credentials: 'include',
     };
+    const token = localStorage.getItem('TOKEN')
+    if (token){
+      options.headers['Authorization'] = `Bearer ${token}`
+      options.credentials = 'include'
+    }
     if (body){
       if (contentType){
         options.headers['Content-Type'] = contentType
