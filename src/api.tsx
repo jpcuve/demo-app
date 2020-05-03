@@ -6,8 +6,9 @@ const AUTH_BASE = '/auth'
 
 export const getApi = (dispatch: Dispatch<AnyAction>) => {
     return {
-        signIn: async function (email: String, password: String): Promise<boolean> {
+        signIn: async function (email: string, password: string): Promise<boolean> {
             dispatch({ type: 'update-errors', errors: [] })
+            dispatch({type: 'update-fetching', fetching: true})
             try {
                 const data: any = await client.post(`${AUTH_BASE}/sign-in`, { email, password })
                 dispatch({ type: 'update-token', token: data.token })
@@ -15,6 +16,8 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
             } catch (e) {
                 dispatch({ type: 'update-errors', errors: [JSON.stringify(e)] })
                 return false
+            } finally {
+                dispatch({type: 'update-fetching', fetching: false})
             }
         },
         signOut: async function () {
@@ -24,6 +27,15 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
                 dispatch({ type: 'update-token', token: data.token })
             } catch (e) {
                 dispatch({ type: 'update-errors', errors: [JSON.stringify(e)] })
+            }
+        },
+        signUp: async function (email: string, password: string, name: string): Promise<boolean> {
+            dispatch({ type: 'update-errors', errors: [] })
+            try {
+                const data: any = await client.post(`${AUTH_BASE}/sign-up`, { email, password, name })
+                return true
+            } catch (e) {
+                return false
             }
         },
         test: async function () {

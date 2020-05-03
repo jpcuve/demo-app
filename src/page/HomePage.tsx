@@ -1,16 +1,17 @@
 import React from 'react'
 import Outline from './Outline'
-import { PageProps, ApplicationState } from '..'
+import { PageProps } from '..'
 import { useSelector, useDispatch } from 'react-redux'
-import { User } from '../domain'
+import { User, defaultUser } from '../domain'
 import client from '../remote'
+import { ApplicationState } from '../store'
 
 
 const HomePage: React.FC<PageProps> = props => {
     const [fetching, setFetching] = React.useState<boolean>(false)
     const [errors, setErrors] = React.useState<string[]>([])
     const count = useSelector<ApplicationState, number>(state => state.counter)
-    const user = useSelector<ApplicationState, User>(state => state.user)
+    const user = defaultUser
     const dispatch = useDispatch()
     const init = async () => {
         setFetching(true)

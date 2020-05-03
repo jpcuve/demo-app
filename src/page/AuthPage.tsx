@@ -1,11 +1,10 @@
 import React from 'react'
 import Outline from './Outline'
-import { User } from '../domain'
+import { User, defaultUser } from '../domain'
 import GoogleSignInButton from '../component/GoogleSignInButton'
 import { RouteComponentProps } from 'react-router'
 import client from '../remote'
-import { useDispatch, useSelector } from 'react-redux'
-import { ApplicationState } from '..'
+import { useDispatch } from 'react-redux'
 declare const gapi: any
 
 interface ResetPassword {
@@ -65,7 +64,7 @@ const AuthPage: React.FC<RouteComponentProps> = props => {
   const [signIn, setSignIn] = React.useState<SignIn>(defaultSignIn)
   const [signUp, setSignUp] = React.useState<SignUp>(defaultSignUp)
   const [updatePassword, setUpdatePassword] = React.useState<UpdatePassword>(defaultUpdatePassword)
-  const user = useSelector<ApplicationState, User>(state => state.user)
+  const user = defaultUser
   const dispatch = useDispatch()
   const updateUser = (user: User) => dispatch({type: 'update-user', user})
   const handleResetPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => setResetPassword({ ...resetPassword, [e.target.name]: e.target.value })
