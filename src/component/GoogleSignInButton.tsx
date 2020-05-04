@@ -1,12 +1,8 @@
 import React from 'react'
-import { User } from '../domain'
-import client from '../remote'
 declare const gapi: any
 
 interface Props {
   scope: string,
-  onSignIn: (user: User) => void,
-  onFailure: (error: any) => void,
 }
 
 interface GoogleUser {
@@ -29,13 +25,16 @@ const GoogleSignInButton: React.FC<Props> = props => {
   const handleSuccess = async (googleUser: GoogleUser) => {
     const token = googleUser.getAuthResponse().id_token
     console.log(`Google sign-in success: ${token}`)
+    /*
     setFetching(true)
     try {
       const user: User = await client.post('/auth/google-sign-in', { 'token': token })
-      props.onSignIn(user);
+      
+      props.onSignIn("");
     } catch (e) {
       props.onFailure(e)
     }
+    */
   }
   React.useEffect(() => {
     console.log(`Setting-up google sign-in button`)
@@ -46,7 +45,7 @@ const GoogleSignInButton: React.FC<Props> = props => {
       'longtitle': true,
       'theme': 'dark',
       'onsuccess': handleSuccess,
-      'onfailure': props.onFailure
+      // 'onfailure': props.onFailure
     })
   }, [])
   return (

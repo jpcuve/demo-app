@@ -1,32 +1,31 @@
 import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { User } from '../domain'
+import { Profile } from '../domain'
+import { useSelector } from 'react-redux'
+import { ApplicationState } from '../store'
 
-interface Props extends RouteComponentProps {
-  fetching: boolean,
-  errors: string[],
-  user: User,
-}
-
-const Outline: React.FC<Props> = props => {
+const Outline: React.FC<RouteComponentProps> = props => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const forward = (url: string) => {
     setAnchorEl(null)
     props.history.push(url)
   }
+  const profile = useSelector<ApplicationState, Profile>(state => state.profile)
+  const errors = useSelector<ApplicationState, string[]>(state => state.errors)
+  const fetching = useSelector<ApplicationState, boolean>(state => state.fetching)
   return (
     <div>
-      <div>User: {JSON.stringify(props.user)}</div>
+      <div>User: {profile.name}</div>
       <div>Menu</div>
       <div>
         <ul style={{ color: 'red' }}>
-          {props.errors.map(error => {
+          {errors.map(error => {
             return (
               <li key={error}>{error}</li>
             );
           })}
         </ul>
-        {props.fetching && <span>Fetching...</span>}
+        {fetching && <span>Fetching...</span>}
         {props.children}
       </div>
     </div>

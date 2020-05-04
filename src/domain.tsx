@@ -1,13 +1,13 @@
-export interface User {
-  id: number,
-  email: string,
+export interface Profile {
+  identified: boolean,
+  token: string,
+  name: string,
   roles: string[],
-  super: boolean
 }
 
-export const defaultUser: User = {
-  id: 0,
-  email: '',
+export const defaultProfile: Profile = {
+  identified: false,
+  token: '',
+  name: '',
   roles: [],
-  super: false,
 }

@@ -1,6 +1,7 @@
 import client from "./remote"
 import { Dispatch } from "react"
 import { AnyAction } from "redux"
+import { Profile } from "./domain"
 
 const AUTH_BASE = '/auth'
 
@@ -20,12 +21,12 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
 
   return {
     signIn: async (email: string, password: string) => wrap(async () => {
-      const data: any = await client.post(`${AUTH_BASE}/sign-in`, { email, password })
-      dispatch({ type: 'update-token', token: data.token })
+      const profile: Profile = await client.post(`${AUTH_BASE}/sign-in`, { email, password })
+      dispatch({ type: 'update-profile', profile })
     }),
     signOut: async () => wrap(async () => {
-      const data: any = await client.get(`${AUTH_BASE}/sign-out`)
-      dispatch({ type: 'update-token', token: data.token })
+      const profile: Profile = await client.get(`${AUTH_BASE}/sign-out`)
+      dispatch({ type: 'update-profile', profile })
     }),
     test: async () => wrap(async () => {
       const data: any = await client.get('/master/all-currency-groups')
