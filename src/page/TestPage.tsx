@@ -11,9 +11,6 @@ const TestPage: React.FC<{}> = () => {
   const api = getApi(useDispatch())
   const profile = useSelector<ApplicationState, Profile>(state => state.profile)
   const fetching = useSelector<ApplicationState, boolean>(state => state.fetching)
-  const handleClick = () => {
-    api.test()
-  }
   return (
     <div>
       <div>Token:&nbsp;{profile.token}</div>
@@ -21,7 +18,9 @@ const TestPage: React.FC<{}> = () => {
       <SignInForm />
       <SignOutButton />
       <br />
-      <button onClick={handleClick}>Test</button>
+      <button onClick={() => api.test()}>Test</button>
+      <br/>
+      <button onClick={() => api.error()}>Error</button>
     </div>
   )
 }

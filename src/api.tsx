@@ -6,11 +6,11 @@ import { Profile } from "./domain"
 const AUTH_BASE = '/auth'
 
 export const getApi = (dispatch: Dispatch<AnyAction>) => {
-  const wrap = async (fn: () => void) => {
+  const wrap = async (fn: () => any|undefined) => {
     dispatch({ type: 'update-errors', errors: [] })
     dispatch({ type: 'update-fetching', fetching: true })
     try {
-      fn()
+      const data = await fn()
     } catch (e) {
       dispatch({ type: 'update-errors', errors: [JSON.stringify(e)] })
     } finally {
@@ -30,6 +30,10 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
     }),
     test: async () => wrap(async () => {
       const data: any = await client.get('/master/all-currency-groups')
+      console.log(JSON.stringify(data))
+    }),
+    error: async () => wrap(async () => {
+      const data: any = await client.get(`${AUTH_BASE}/error`)
       console.log(JSON.stringify(data))
     })
   }
