@@ -24,11 +24,11 @@ const UpdatePasswordForm: React.FC<{}> = () => {
   return (
     <form noValidate onSubmit={handleSubmit}>
       <h1>Update password</h1>
-      <label>New password
+      <label>New password<br/>
             <input name="newPassword" type="password" value={formData.newPassword} onChange={handleChange} />
       </label>
       <br />
-      <label>New password confirmation
+      <label>New password confirmation<br/>
             <input name="newPasswordConfirmation" type="password" value={formData.newPasswordConfirmation} onChange={handleChange} />
       </label>
       <br />
