@@ -20,13 +20,13 @@ const Outline: React.FC<Props> = props => {
       <div>Menu</div>
       <div>
         <ul style={{ color: 'red' }}>
-            {props.errors.map(error => {
-              return (
-                <li key={error}>{error}</li>
-              );
-            })}
-          </ul>
-          {props.fetching && <span>Fetching...</span>}
+          {props.errors.map(error => {
+            return (
+              <li key={error}>{error}</li>
+            );
+          })}
+        </ul>
+        {props.fetching && <span>Fetching...</span>}
         {props.children}
       </div>
     </div>
