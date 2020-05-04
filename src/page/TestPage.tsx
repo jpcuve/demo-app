@@ -11,10 +11,12 @@ const TestPage: React.FC<{}> = () => {
   const api = getApi(useDispatch())
   const profile = useSelector<ApplicationState, Profile>(state => state.profile)
   const fetching = useSelector<ApplicationState, boolean>(state => state.fetching)
+  const errors = useSelector<ApplicationState, string[]>(state => state.errors)
   return (
     <div>
       <div>Token:&nbsp;{profile.token}</div>
       <div>Fetching:&nbsp;{fetching && <img src={ajax} alt="ajax" />}</div>
+      <div>Errors: {errors.map(error => {return <span>&nbsp;{error}</span>})}</div>
       <SignInForm />
       <SignOutButton />
       <br />

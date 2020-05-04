@@ -1,3 +1,5 @@
+import { Profile } from "./domain"
+
 const BASE_URL = window.location.port === '3000' ? 'http://localhost:8080' : `${window.location.protocol}//${window.location.host}`
 console.debug(`Base URL for RPC: ${BASE_URL}`)
 
@@ -11,9 +13,10 @@ const client: any = {
       },
       // credentials: 'include',
     };
-    const token = localStorage.getItem('TOKEN')
-    if (token){
-      options.headers['Authorization'] = `Bearer ${token}`
+    const profileAsString = localStorage.getItem('PROFILE')
+    if (profileAsString){
+      const profile = JSON.parse(profileAsString) as Profile
+      options.headers['Authorization'] = `Bearer ${profile.token}`
       options.credentials = 'include'
     }
     if (body){
@@ -23,13 +26,22 @@ const client: any = {
       options.body = body;
     }
     console.debug(JSON.stringify(options))
-    const res = await fetch(`${BASE_URL}${endPoint}`, options)
-    const json = await res.json()
-    console.debug(JSON.stringify(json))
-    if ('error' in json) {
-      throw json.error;
+    try{
+      const res = await fetch(`${BASE_URL}${endPoint}`, options)
+      if (!res.ok){
+        throw Error(`Http error: ${res.status} ${res.statusText}`)
+      }
+      const json = await res.json()
+      console.debug(JSON.stringify(json))
+      if ('error' in json) {
+        throw Error(json.error)
+      }
+      return json;
+    } catch(e){
+      const error = Error('Fetch error')
+      console.error(`Fetch error: ${error.message}`)
+      throw error
     }
-    return json;
   },
   get: async function(endPoint: string): Promise<any> { 
     return await this.rpc(endPoint)

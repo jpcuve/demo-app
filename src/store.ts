@@ -34,6 +34,6 @@ const profileAsString: string | null = localStorage.getItem('PROFILE')
 const profile: Profile = profileAsString ? JSON.parse(profileAsString) as Profile : defaultProfile
 export const store = createStore(rootReducer, { ...defaultApplicationState, profile })
 store.subscribe(() => {
-  localStorage.setItem('TOKEN', JSON.stringify(store.getState().profile))
+  localStorage.setItem('PROFILE', JSON.stringify(store.getState().profile))
 })
 
