@@ -12,29 +12,26 @@ const defaultFormData: FormData = {
   password: ''
 }
 
-const SignInForm: React.FC<{}> = () => {
+const ResetPasswordForm: React.FC<{}> = () => {
   const api = getApi(useDispatch())
   const [formData, setFormData] = React.useState<FormData>(defaultFormData)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, [e.target.name]: e.target.value })
   const handleSubmit = async (e: React.SyntheticEvent) => {
       e.preventDefault()
-      api.signIn(formData.email, formData.password)
+      // api.resetPassword(formData.email)
   }
 
   return (
     <form noValidate onSubmit={handleSubmit}>
-        <h1>Sign-in</h1>
-        <label>Username<br/>
-          <input name="email" value={formData.email} onChange={handleChange} />
-        </label>
-        <br />
-        <label>Password<br/>
-          <input name="password" value={formData.password} type="password" onChange={handleChange} />
-        </label>
-        <br />
-        <button type="submit">Sign-in</button>
+          <h1>Reset password</h1>
+          <br/>
+          <label>Email
+            <input name="email" value={formData.email} onChange={handleChange}/>
+          </label> 
+          <br/>
+          <button type="submit">Reset password</button>
     </form>
   )
 }
 
-export default SignInForm
+export default ResetPasswordForm
