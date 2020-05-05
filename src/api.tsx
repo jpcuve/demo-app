@@ -5,30 +5,28 @@ import { Profile } from "./domain"
 
 const AUTH_BASE = '/auth'
 
-export const getApi = (dispatch: Dispatch<AnyAction>): any => {
+export const getApi = (dispatch: Dispatch<AnyAction>) => {
   const wrap = async (fn: () => any|undefined) => {
     dispatch({ type: 'update-errors', errors: [] })
     dispatch({ type: 'update-fetching', fetching: true })
     try {
-      return await fn()
+      const data = await fn()
     } catch (e) {
       dispatch({ type: 'update-errors', errors: [e.message] })
-      return undefined
     } finally {
       dispatch({ type: 'update-fetching', fetching: false })
     }
+    return undefined
   }
 
   return {
     signIn: async (email: string, password: string) => wrap(async () => {
       const profile: Profile = await client.post(`${AUTH_BASE}/sign-in`, { email, password })
       dispatch({ type: 'update-profile', profile })
-      return profile
     }),
     signOut: async () => wrap(async () => {
       const profile: Profile = await client.get(`${AUTH_BASE}/sign-out`)
       dispatch({ type: 'update-profile', profile })
-      return profile
     }),
     test: async () => wrap(async () => {
       const data: any = await client.get('/master/all-currency-groups')

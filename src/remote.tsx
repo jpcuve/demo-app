@@ -26,22 +26,16 @@ const client: any = {
       options.body = body;
     }
     console.debug(JSON.stringify(options))
-    try{
-      const res = await fetch(`${BASE_URL}${endPoint}`, options)
-      if (!res.ok){
-        throw Error(`Http error: ${res.status} ${res.statusText}`)
-      }
-      const json = await res.json()
-      console.debug(JSON.stringify(json))
-      if ('error' in json) {
-        throw Error(json.error)
-      }
-      return json;
-    } catch(e){
-      const error = Error('Fetch error')
-      console.error(`Fetch error: ${error.message}`)
-      throw error
+    const res = await fetch(`${BASE_URL}${endPoint}`, options)
+    if (!res.ok){
+      throw Error(`Http error: ${res.status} ${res.statusText}`)
     }
+    const json = await res.json()
+    console.debug(JSON.stringify(json))
+    if ('error' in json) {
+      throw Error(json.error)
+    }
+    return json;
   },
   get: async function(endPoint: string): Promise<any> { 
     return await this.rpc(endPoint)
