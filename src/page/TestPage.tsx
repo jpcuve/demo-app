@@ -16,7 +16,7 @@ const TestPage: React.FC<{}> = () => {
     <div>
       <div>Token:&nbsp;{profile.token}</div>
       <div>Fetching:&nbsp;{fetching && <img src={ajax} alt="ajax" />}</div>
-      <div>Errors: {errors.map(error => {return <span>&nbsp;{error}</span>})}</div>
+      <div>Errors: {errors.map(error => {return <span key={error} style={{color: 'red'}}>&nbsp;{error}</span>})}</div>
       <SignInForm />
       <SignOutButton />
       <br />
