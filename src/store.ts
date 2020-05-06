@@ -4,6 +4,7 @@ import { Perpetual, defaultPerpetual } from "./domain"
 export interface ApplicationState {
   fetching: boolean,
   errors: string[],
+  flash: string,
   token: string,
   counter: number,
   perpetual: Perpetual,
@@ -12,6 +13,7 @@ export interface ApplicationState {
 const defaultApplicationState: ApplicationState = {
   fetching: false,
   errors: [],
+  flash: '',
   token: '',
   counter: 0,
   perpetual: defaultPerpetual,
@@ -28,6 +30,8 @@ const rootReducer = (state: ApplicationState = defaultApplicationState, action: 
       return { ...state, fetching: action.fetching }
     case 'update-errors':
       return { ...state, errors: action.errors }
+    case 'update-flash':
+      return { ...state, flash: action.flash }
     case 'update-perpetual':
       return {...state, perpetual: action.perpetual}
   }

@@ -20,6 +20,12 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
   }
 
   return {
+    flash: (message: string) => {
+      dispatch({type: 'update-flash', flash: message })
+      setTimeout(() => {
+        dispatch({type: 'update-flash', flash: ''})
+      }, 3000)
+    },
     signIn: async (email: string, password: string) => wrap<Token>(async () => {
       const token: Token = await client.post(`${AUTH_BASE}/sign-in`, { email, password })
       dispatch({ type: 'update-token', token: token.token })

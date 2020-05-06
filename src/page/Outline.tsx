@@ -14,12 +14,14 @@ const Outline: React.FC<RouteComponentProps> = props => {
   }
   const token = useSelector<ApplicationState, string>(state => state.token)
   const errors = useSelector<ApplicationState, string[]>(state => state.errors)
+  const flash = useSelector<ApplicationState, string>(state => state.flash)
   const fetching = useSelector<ApplicationState, boolean>(state => state.fetching)
   const perpetual = useSelector<ApplicationState, Perpetual>(state => state.perpetual)
   return (
     <div>
       {token && <div>User: {perpetual.profile.name} &nbsp; Account: {perpetual.account.name} &nbsp; Bank: {perpetual.bank.name}</div>}
       {!token && <div>Public</div>}
+      {flash && <div className="flash">{flash}</div>}
       <div>
         <ul className='error'>
           {errors.map(error => {

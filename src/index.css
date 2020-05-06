@@ -25,6 +25,10 @@ form label {
   color: red;
 }
 
+.flash {
+  color: green;
+}
+
 .left {
   float: left;
   width: 12em;;
