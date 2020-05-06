@@ -48,7 +48,7 @@ const AuthPage: React.FC<RouteComponentProps> = props => {
           <button onClick={() => setChoice(Choice.ResetPassword)}>Reset password</button>
         </>
       }
-      {!token && <UpdatePasswordForm />}
+      {token && <UpdatePasswordForm />}
     </Outline>
   )
 }
