@@ -26,18 +26,21 @@ const SignUpForm: React.FC<{}> = () => {
   return (
     <form noValidate onSubmit={handleSubmit}>
       <h1>Sign-up</h1>
-      <label>Username<br/>
-            <input name="email" value={formData.email} onChange={handleChange} />
-      </label>
-      <br />
-      <label>Password<br/>
-            <input name="password" value={formData.password} type="password" onChange={handleChange} />
-      </label>
-      <br />
-      <label>Name<br/>
-            <input name="name" value={formData.name} onChange={handleChange} />
-      </label>
-      <br />
+      <p>
+        <label>Username<br/>
+          <input name="email" value={formData.email} onChange={handleChange} />
+        </label>
+      </p>
+      <p>
+        <label>Password<br/>
+          <input name="password" value={formData.password} type="password" onChange={handleChange} />
+        </label>
+      </p>
+      <p>
+        <label>Name<br/>
+          <input name="name" value={formData.name} onChange={handleChange} />
+        </label>
+      </p>
       <button type="submit">Sign-up</button>
     </form>
   )

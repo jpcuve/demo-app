@@ -27,14 +27,16 @@ const SignInForm: React.FC<FormProps> = props => {
   return (
     <form noValidate onSubmit={handleSubmit}>
         <h1>Sign-in</h1>
-        <label>Username<br/>
-          <input name="email" value={formData.email} onChange={handleChange} />
-        </label>
-        <br />
-        <label>Password<br/>
-          <input name="password" value={formData.password} type="password" onChange={handleChange} />
-        </label>
-        <br />
+        <p>
+          <label>Username<br/>
+            <input name="email" value={formData.email} onChange={handleChange} />
+          </label>
+        </p>
+        <p>
+          <label>Password<br/>
+            <input name="password" value={formData.password} type="password" onChange={handleChange} />
+          </label>
+        </p>
         <button type="submit">Sign-in</button>
     </form>
   )

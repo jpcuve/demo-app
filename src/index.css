@@ -12,6 +12,24 @@ code {
     monospace;
 }
 
+nav ul {
+  list-style: none;
+  padding-left: 1em;
+}
+
+form label {
+  font-size: smaller;
+}
+
 .error {
   color: red;
+}
+
+.left {
+  float: left;
+  width: 12em;;
+}
+
+.right {
+  margin-left: 12em;
 }

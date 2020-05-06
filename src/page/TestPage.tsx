@@ -6,24 +6,17 @@ import { getApi } from '../api'
 import { ApplicationState } from '../store'
 import ajax from '../ajax-loader.gif'
 import { Token } from '../domain'
+import { PageProps } from '..'
+import Outline from './Outline'
 
-const TestPage: React.FC<{}> = () => {
+const TestPage: React.FC<PageProps> = props => {
   const api = getApi(useDispatch())
-  const token = useSelector<ApplicationState, string>(state => state.token)
-  const fetching = useSelector<ApplicationState, boolean>(state => state.fetching)
-  const errors = useSelector<ApplicationState, string[]>(state => state.errors)
   return (
-    <div>
-      <div>Token:&nbsp;{token}</div>
-      <div>Fetching:&nbsp;{fetching && <img src={ajax} alt="ajax" />}</div>
-      <div>Errors: {errors.map(error => {return <span key={error} className='error'>&nbsp;{error}</span>})}</div>
-      <SignInForm onCompleted={() => console.log("Sign-in form completed")}/>
-      <SignOutButton />
-      <br />
+    <Outline {...props}>
       <button onClick={() => api.perpetual()}>Test</button>
       <br/>
       <button onClick={() => api.error()}>Error</button>
-    </div>
+    </Outline>
   )
 }
 

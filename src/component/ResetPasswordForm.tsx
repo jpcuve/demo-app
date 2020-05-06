@@ -24,11 +24,11 @@ const ResetPasswordForm: React.FC<{}> = () => {
   return (
     <form noValidate onSubmit={handleSubmit}>
           <h1>Reset password</h1>
-          <br/>
-          <label>Email<br/>
-            <input name="email" value={formData.email} onChange={handleChange}/>
-          </label> 
-          <br/>
+          <p>
+            <label>Email<br/>
+              <input name="email" value={formData.email} onChange={handleChange}/>
+            </label> 
+          </p>
           <button type="submit">Reset password</button>
     </form>
   )
