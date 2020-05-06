@@ -18,7 +18,7 @@ const Outline: React.FC<RouteComponentProps> = props => {
       <div>User: {profile.name}</div>
       <div>Menu</div>
       <div>
-        <ul style={{ color: 'red' }}>
+        <ul className='error'>
           {errors.map(error => {
             return (
               <li key={error}>{error}</li>
