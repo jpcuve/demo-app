@@ -1,11 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { getApi } from '../api'
-import { Token } from '../domain'
-
-interface Props {
-  onSignIn: (token: Token|undefined) => void
-}
+import { FormProps } from '..'
 
 interface FormData {
   email: string,
@@ -17,7 +13,7 @@ const defaultFormData: FormData = {
   password: ''
 }
 
-const SignInForm: React.FC<Props> = props => {
+const SignInForm: React.FC<FormProps> = props => {
   const api = getApi(useDispatch())
   const [formData, setFormData] = React.useState<FormData>(defaultFormData)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -25,7 +21,7 @@ const SignInForm: React.FC<Props> = props => {
       e.preventDefault()
       const token = await api.signIn(formData.email, formData.password)
       console.debug(`Logged in as: ${token}`)
-      props.onSignIn(token)
+      props.onCompleted()
   }
 
   return (

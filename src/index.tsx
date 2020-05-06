@@ -8,6 +8,9 @@ import { Provider } from 'react-redux'
 import { store } from './store'
 
 export interface PageProps extends RouteComponentProps {}
+export interface FormProps {
+  onCompleted: () => void
+}
 
 ReactDOM.render(
   <React.StrictMode>

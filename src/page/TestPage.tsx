@@ -17,7 +17,7 @@ const TestPage: React.FC<{}> = () => {
       <div>Token:&nbsp;{token}</div>
       <div>Fetching:&nbsp;{fetching && <img src={ajax} alt="ajax" />}</div>
       <div>Errors: {errors.map(error => {return <span key={error} className='error'>&nbsp;{error}</span>})}</div>
-      <SignInForm onSignIn={(token: Token|undefined) => console.log(JSON.stringify(token))}/>
+      <SignInForm onCompleted={() => console.log("Sign-in form completed")}/>
       <SignOutButton />
       <br />
       <button onClick={() => api.perpetual()}>Test</button>

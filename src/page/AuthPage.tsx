@@ -8,7 +8,7 @@ import SignUpForm from '../component/SignUpForm'
 import UpdatePasswordForm from '../component/UpdatePasswordForm'
 import { useDispatch, useSelector } from 'react-redux'
 import { getApi } from '../api'
-import { ApplicationState } from '../store'
+import { ApplicationState, store } from '../store'
 import { Token, Perpetual } from '../domain'
 declare const gapi: any
 
@@ -23,9 +23,9 @@ const AuthPage: React.FC<RouteComponentProps> = props => {
   const api = getApi(useDispatch())
   const [choice, setChoice] = React.useState<Choice>(Choice.SignIn)
   const token = useSelector<ApplicationState, string>(state => state.token)
-  const signInSubmitted = async (token: Token|undefined) => {
-    console.log(`Token: ${JSON.stringify(token)}`)
-    if (token?.token){
+  const signInCompleted = async () => {
+    console.log(`Sign in completed, token: ${store.getState().token}`)
+    if (store.getState().token){
       await api.perpetual()
       props.history.push('/home')
     }
@@ -43,7 +43,7 @@ const AuthPage: React.FC<RouteComponentProps> = props => {
       }
       {!token && choice === Choice.SignIn &&
         <>
-          <SignInForm onSignIn={signInSubmitted}/>
+          <SignInForm onCompleted={signInCompleted}/>
           <button onClick={() => setChoice(Choice.SignUp)}>Sign-up</button>
           &nbsp;
           <button onClick={() => setChoice(Choice.ResetPassword)}>Reset password</button>
