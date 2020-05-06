@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getApi } from '../api'
 import { ApplicationState } from '../store'
 import ajax from '../ajax-loader.gif'
+import { Token } from '../domain'
 
 const TestPage: React.FC<{}> = () => {
   const api = getApi(useDispatch())
@@ -16,10 +17,10 @@ const TestPage: React.FC<{}> = () => {
       <div>Token:&nbsp;{token}</div>
       <div>Fetching:&nbsp;{fetching && <img src={ajax} alt="ajax" />}</div>
       <div>Errors: {errors.map(error => {return <span key={error} className='error'>&nbsp;{error}</span>})}</div>
-      <SignInForm />
+      <SignInForm onSignIn={(token: Token|undefined) => console.log(JSON.stringify(token))}/>
       <SignOutButton />
       <br />
-      <button onClick={() => api.test()}>Test</button>
+      <button onClick={() => api.perpetual()}>Test</button>
       <br/>
       <button onClick={() => api.error()}>Error</button>
     </div>

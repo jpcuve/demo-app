@@ -1,7 +1,7 @@
 import client from "./remote"
 import { Dispatch } from "react"
 import { AnyAction } from "redux"
-import { Token } from "./domain"
+import { Token, Perpetual } from "./domain"
 
 const AUTH_BASE = '/auth'
 
@@ -30,9 +30,10 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
       dispatch({ type: 'update-token', token: token.token })
       return token
     }),
-    test: async () => wrap(async () => {
-      const data: any = await client.get('/master/static')
-      console.log(JSON.stringify(data))
+    perpetual: async () => wrap<Perpetual>(async () => {
+      const perpetual: Perpetual = await client.get('/master/static')
+      dispatch({ type: 'update-perpetual', perpetual })
+      return perpetual
     }),
     error: async () => wrap<any>(async () => {
       const data: any = await client.get(`${AUTH_BASE}/error`)

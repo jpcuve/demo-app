@@ -1,10 +1,12 @@
 import { AnyAction, createStore } from "redux"
+import { Perpetual, defaultPerpetual } from "./domain"
 
 export interface ApplicationState {
   fetching: boolean,
   errors: string[],
   token: string,
   counter: number,
+  perpetual: Perpetual,
 }
 
 const defaultApplicationState: ApplicationState = {
@@ -12,6 +14,7 @@ const defaultApplicationState: ApplicationState = {
   errors: [],
   token: '',
   counter: 0,
+  perpetual: defaultPerpetual,
 }
 
 const rootReducer = (state: ApplicationState = defaultApplicationState, action: AnyAction) => {
@@ -25,6 +28,8 @@ const rootReducer = (state: ApplicationState = defaultApplicationState, action: 
       return { ...state, fetching: action.fetching }
     case 'update-errors':
       return { ...state, errors: action.errors }
+    case 'update-perpetual':
+      return {...state, perpetual: action.perpetual}
   }
   return state
 }
