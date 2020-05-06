@@ -1,17 +1,16 @@
 import { AnyAction, createStore } from "redux"
-import { Profile, defaultProfile } from "./domain"
 
 export interface ApplicationState {
   fetching: boolean,
   errors: string[],
-  profile: Profile,
+  token: string,
   counter: number,
 }
 
 const defaultApplicationState: ApplicationState = {
   fetching: false,
   errors: [],
-  profile: defaultProfile,
+  token: '',
   counter: 0,
 }
 
@@ -20,8 +19,8 @@ const rootReducer = (state: ApplicationState = defaultApplicationState, action: 
   switch (action.type) {
     case 'increment-counter':
       return { ...state, counter: state.counter + 1 }
-    case 'update-profile':
-      return { ...state, profile: action.profile }
+    case 'update-token':
+      return { ...state, token: action.token }
     case 'update-fetching':
       return { ...state, fetching: action.fetching }
     case 'update-errors':
@@ -30,10 +29,9 @@ const rootReducer = (state: ApplicationState = defaultApplicationState, action: 
   return state
 }
 
-const profileAsString: string | null = localStorage.getItem('PROFILE')
-const profile: Profile = profileAsString ? JSON.parse(profileAsString) as Profile : defaultProfile
-export const store = createStore(rootReducer, { ...defaultApplicationState, profile })
+const token = localStorage.getItem('TOKEN') || ''
+export const store = createStore(rootReducer, { ...defaultApplicationState, token })
 store.subscribe(() => {
-  localStorage.setItem('PROFILE', JSON.stringify(store.getState().profile))
+  localStorage.setItem('TOKEN', store.getState().token)
 })
 

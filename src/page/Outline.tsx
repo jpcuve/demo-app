@@ -1,6 +1,5 @@
 import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { Profile } from '../domain'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../store'
 
@@ -10,12 +9,12 @@ const Outline: React.FC<RouteComponentProps> = props => {
     setAnchorEl(null)
     props.history.push(url)
   }
-  const profile = useSelector<ApplicationState, Profile>(state => state.profile)
+  const token = useSelector<ApplicationState, string>(state => state.token)
   const errors = useSelector<ApplicationState, string[]>(state => state.errors)
   const fetching = useSelector<ApplicationState, boolean>(state => state.fetching)
   return (
     <div>
-      <div>User: {profile.name}</div>
+      <div>Token: {token}</div>
       <div>Menu</div>
       <div>
         <ul className='error'>

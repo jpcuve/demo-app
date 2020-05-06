@@ -1,13 +1,7 @@
-export interface Profile {
-  identified: boolean,
+export interface Token {
   token: string,
-  name: string,
-  roles: string[],
 }
 
-export const defaultProfile: Profile = {
-  identified: false,
+export const defaultToken: Token = {
   token: '',
-  name: '',
-  roles: [],
 }

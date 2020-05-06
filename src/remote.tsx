@@ -1,5 +1,3 @@
-import { Profile } from "./domain"
-
 const BASE_URL = window.location.port === '3000' ? 'http://localhost:8080' : `${window.location.protocol}//${window.location.host}`
 console.debug(`Base URL for RPC: ${BASE_URL}`)
 
@@ -13,10 +11,9 @@ const client: any = {
       },
       // credentials: 'include',
     };
-    const profileAsString = localStorage.getItem('PROFILE')
-    if (profileAsString){
-      const profile = JSON.parse(profileAsString) as Profile
-      options.headers['Authorization'] = `Bearer ${profile.token}`
+    const token = localStorage.getItem('TOKEN') || ''
+    if (token){
+      options.headers['Authorization'] = `Bearer ${token}`
       options.credentials = 'include'
     }
     if (body){

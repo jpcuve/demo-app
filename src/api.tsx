@@ -1,7 +1,7 @@
 import client from "./remote"
 import { Dispatch } from "react"
 import { AnyAction } from "redux"
-import { Profile } from "./domain"
+import { Token } from "./domain"
 
 const AUTH_BASE = '/auth'
 
@@ -20,18 +20,18 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
   }
 
   return {
-    signIn: async (email: string, password: string) => wrap<Profile>(async () => {
-      const profile: Profile = await client.post(`${AUTH_BASE}/sign-in`, { email, password })
-      dispatch({ type: 'update-profile', profile })
-      return profile
+    signIn: async (email: string, password: string) => wrap<Token>(async () => {
+      const token: Token = await client.post(`${AUTH_BASE}/sign-in`, { email, password })
+      dispatch({ type: 'update-token', token: token.token })
+      return token
     }),
-    signOut: async () => wrap<Profile>(async () => {
-      const profile: Profile = await client.get(`${AUTH_BASE}/sign-out`)
-      dispatch({ type: 'update-profile', profile })
-      return profile
+    signOut: async () => wrap<Token>(async () => {
+      const token: Token = await client.get(`${AUTH_BASE}/sign-out`)
+      dispatch({ type: 'update-token', token: token.token })
+      return token
     }),
     test: async () => wrap(async () => {
-      const data: any = await client.get('/master/all-currency-groups')
+      const data: any = await client.get('/master/static')
       console.log(JSON.stringify(data))
     }),
     error: async () => wrap<any>(async () => {

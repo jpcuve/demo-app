@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { getApi } from '../api'
-import { Profile } from '../domain'
 
 interface FormData {
   email: string,
@@ -19,8 +18,8 @@ const SignInForm: React.FC<{}> = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, [e.target.name]: e.target.value })
   const handleSubmit = async (e: React.SyntheticEvent) => {
       e.preventDefault()
-      const profile = await api.signIn(formData.email, formData.password)
-      console.debug(`Logged in as: ${profile && profile.name}`)
+      const token = await api.signIn(formData.email, formData.password)
+      console.debug(`Logged in as: ${token}`)
   }
 
   return (
