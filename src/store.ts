@@ -1,5 +1,5 @@
 import { AnyAction, createStore } from "redux"
-import { Perpetual, defaultPerpetual, Instruction, defaultProfile } from "./domain"
+import { Perpetual, defaultPerpetual, Instruction } from "./domain"
 import client from "./remote"
 
 export interface ApplicationState {
@@ -15,7 +15,7 @@ export interface ApplicationState {
 const defaultApplicationState: ApplicationState = {
   fetching: false,
   errors: [],
-  flash: '',
+  flash: 'Ready',
   token: '',
   counter: 0,
   perpetual: defaultPerpetual,

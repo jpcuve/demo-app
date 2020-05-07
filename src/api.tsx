@@ -23,7 +23,7 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
     flash: (message: string) => {
       dispatch({type: 'update-flash', flash: message })
       setTimeout(() => {
-        dispatch({type: 'update-flash', flash: ''})
+        dispatch({type: 'update-flash', flash: 'Ready'})
       }, 3000)
     },
     signIn: async (email: string, password: string) => wrap<Token>(async () => {
@@ -38,6 +38,12 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
       const token: Token = await client.get(`${AUTH_BASE}/sign-out`)
       dispatch({ type: 'update-token', token: token.token })
       return token
+    }),
+    updatePassword: async (newPassword: string, newPasswordConfirmation: string) => wrap<void>(async () => {
+      await client.post(`${AUTH_BASE}/update-password`, { newPassword, newPasswordConfirmation })
+    }),
+    resetPassword: async (email: string) => wrap<void>(async () => {
+      await client.post(`${AUTH_BASE}/reset-password`, { email })
     }),
     perpetual: async () => wrap<Perpetual>(async () => {
       const perpetual: Perpetual = await client.get(`${MASTER_BASE}/perpetual`)

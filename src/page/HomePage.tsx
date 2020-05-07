@@ -11,9 +11,8 @@ const HomePage: React.FC<PageProps> = props => {
 	const api = getApi(useDispatch())
   const perpetual = useSelector<ApplicationState, Perpetual>(state => state.perpetual)
 	const instructions = useSelector<ApplicationState, Instruction[]>(state => state.instructions)
-	React.useEffect(() => {
-		api.statement()
-	}, [])
+	// eslint-disable-next-line
+	React.useEffect(() => { api.statement() }, [])
 	return (
 		<Outline {...props}>
 			<h1>Account statement</h1>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { getApi } from '../api'
+import { FormProps } from '..'
 
 interface FormData {
   newPassword: string,
@@ -12,13 +13,14 @@ const defaultFormData: FormData = {
   newPasswordConfirmation: ''
 }
 
-const UpdatePasswordForm: React.FC<{}> = () => {
+const UpdatePasswordForm: React.FC<FormProps> = props => {
   const api = getApi(useDispatch())
   const [formData, setFormData] = React.useState<FormData>(defaultFormData)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, [e.target.name]: e.target.value })
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    // api.updatePassword(formData.newPassword, formData.newPasswordConfirmation)
+    api.updatePassword(formData.newPassword, formData.newPasswordConfirmation)
+    props.onCompleted()
   }
 
   return (

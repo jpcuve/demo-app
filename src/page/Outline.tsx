@@ -4,14 +4,8 @@ import { useSelector } from 'react-redux'
 import { ApplicationState } from '../store'
 import { Perpetual } from '../domain'
 import SignOutButton from '../component/SignOutButton'
-import UpdatePasswordPage from './UpdatePasswordPage'
 
 const Outline: React.FC<RouteComponentProps> = props => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const forward = (url: string) => {
-    setAnchorEl(null)
-    props.history.push(url)
-  }
   const token = useSelector<ApplicationState, string>(state => state.token)
   const errors = useSelector<ApplicationState, string[]>(state => state.errors)
   const flash = useSelector<ApplicationState, string>(state => state.flash)
