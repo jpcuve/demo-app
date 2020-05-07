@@ -11,8 +11,13 @@ import Outline from './Outline'
 
 const TestPage: React.FC<PageProps> = props => {
   const api = getApi(useDispatch())
+	const count = useSelector<ApplicationState, number>(state => state.counter)
+	const dispatch = useDispatch()
   return (
     <Outline {...props}>
+			<div>Count: {count}</div>
+			<button onClick={() => dispatch({ type: 'increment-counter' })}>Increment</button>
+      <br/>
       <button onClick={() => api.perpetual()}>Test</button>
       <br/>
       <button onClick={() => api.error()}>Error</button>
