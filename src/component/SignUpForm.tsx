@@ -1,6 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { getApi } from '../api'
+import { prependOnceListener } from 'cluster'
+import { FormProps } from '..'
 
 interface FormData {
   email: string,
@@ -14,13 +16,15 @@ const defaultFormData: FormData = {
   name: '',
 }
 
-const SignUpForm: React.FC<{}> = () => {
+const SignUpForm: React.FC<FormProps> = props => {
   const api = getApi(useDispatch())
   const [formData, setFormData] = React.useState<FormData>(defaultFormData)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, [e.target.name]: e.target.value })
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    // api.signUp(formData.email, formData.password, formData.name)
+    await api.signUp(formData.email, formData.password, formData.name)
+    api.flash(`An email has been sent to ${formData.email}`)
+    props.onCompleted()
   }
 
   return (

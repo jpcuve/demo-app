@@ -1,5 +1,5 @@
 import { AnyAction, createStore } from "redux"
-import { Perpetual, defaultPerpetual } from "./domain"
+import { Perpetual, defaultPerpetual, Instruction } from "./domain"
 
 export interface ApplicationState {
   fetching: boolean,
@@ -8,6 +8,7 @@ export interface ApplicationState {
   token: string,
   counter: number,
   perpetual: Perpetual,
+  instructions: Instruction[],
 }
 
 const defaultApplicationState: ApplicationState = {
@@ -17,6 +18,7 @@ const defaultApplicationState: ApplicationState = {
   token: '',
   counter: 0,
   perpetual: defaultPerpetual,
+  instructions: [],
 }
 
 const rootReducer = (state: ApplicationState = defaultApplicationState, action: AnyAction) => {
@@ -33,7 +35,9 @@ const rootReducer = (state: ApplicationState = defaultApplicationState, action: 
     case 'update-flash':
       return { ...state, flash: action.flash }
     case 'update-perpetual':
-      return {...state, perpetual: action.perpetual}
+      return { ...state, perpetual: action.perpetual }
+    case 'update-instructions':
+      return { ...state, instructions: action.instructions }
   }
   return state
 }

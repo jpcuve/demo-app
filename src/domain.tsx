@@ -109,3 +109,17 @@ export const defaultPerpetual: Perpetual = {
   currencyGroups: [],
   currencies: [],
 }
+
+export interface Instruction {
+  id: number,
+  principal: string,
+  counterParty: string,
+
+}
+
+export const defaultInstruction: Instruction = {
+  id: 0,
+  principal: '',
+  counterParty: '',
+
+}

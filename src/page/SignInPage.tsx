@@ -12,6 +12,7 @@ const SignInPage: React.FC<PageProps> = props => {
       console.log(`Sign in completed, token: ${store.getState().token}`)
       if (store.getState().token){
         await api.perpetual()
+        await api.statement()
         api.flash("Sign-in is successful")
         props.history.push('/home')
       }
