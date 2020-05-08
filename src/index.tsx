@@ -11,6 +11,7 @@ export interface PageProps extends RouteComponentProps {}
 export interface FormProps {
   onCompleted: () => void
 }
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
