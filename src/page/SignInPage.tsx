@@ -5,6 +5,7 @@ import Outline from './Outline'
 import { getApi } from '../api'
 import { useDispatch } from 'react-redux'
 import { store } from '../store'
+import SocialSignInPanel from '../component/SocialSignInPanel'
 
 const SignInPage: React.FC<PageProps> = props => {
     const api = getApi(useDispatch())
@@ -18,7 +19,12 @@ const SignInPage: React.FC<PageProps> = props => {
     }
       return (
         <Outline {...props}>
+          <p>
             <SignInForm onCompleted={signInCompleted}/>
+          </p>
+          <p>
+            <SocialSignInPanel onCompleted={signInCompleted}/>
+          </p>
         </Outline>
     )
 }

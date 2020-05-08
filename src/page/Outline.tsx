@@ -11,6 +11,9 @@ const Outline: React.FC<RouteComponentProps> = props => {
   const flash = useSelector<ApplicationState, string>(state => state.flash)
   const fetching = useSelector<ApplicationState, boolean>(state => state.fetching)
   const perpetual = useSelector<ApplicationState, Perpetual>(state => state.perpetual)
+  const signOutCompleted = () => {
+    props.history.push('/')
+  }
   return (
     <div>
       {token && <div>User: {perpetual.profile.name} &nbsp; Account: {perpetual.account.name} &nbsp; Bank: {perpetual.bank.name}</div>}
@@ -39,11 +42,11 @@ const Outline: React.FC<RouteComponentProps> = props => {
                 {token && <li><Link to="/reset-password">Reset password</Link></li>}
               </ul>
             </li>
+            {token && <li><Link to="/statement">Statement</Link></li>}
             <li><Link to="/test">Test</Link></li>
-            <li><Link to="/firebase">Firebase</Link></li>
           </ul>
         </nav>
-        {token && <SignOutButton/>}
+        {token && <SignOutButton onCompleted={signOutCompleted}/>}
       </div>      
       <div className="right">
         {props.children}

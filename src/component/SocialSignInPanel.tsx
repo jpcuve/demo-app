@@ -2,12 +2,12 @@ import React from 'react'
 import { getApi } from '../api'
 import { useDispatch, useSelector } from 'react-redux'
 import { ApplicationState } from '../store'
-import { Perpetual } from '../domain'
+import { FormProps } from '..'
 declare const gapi: any
 
-const SocialSignInPanel: React.FC<{}> = () => {
+const SocialSignInPanel: React.FC<FormProps> = props => {
   const api = getApi(useDispatch())
-  const perpetual = useSelector<ApplicationState, Perpetual>(state => state.perpetual)
+  const token = useSelector<ApplicationState, string>(state => state.token)
   const onSignIn = async (googleUser: any) => {
     const profile = googleUser.getBasicProfile()
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -17,14 +17,10 @@ const SocialSignInPanel: React.FC<{}> = () => {
     const identity = googleUser.getAuthResponse().id_token
     console.log(`Google user token: ${identity}`)
     await api.socialSignIn('google', identity)
-  }
-  const signOut = async () => {
-    const auth2 = gapi.auth2.getAuthInstance()
-    await auth2.signOut()
-    console.log('User signed out.')
+    props.onCompleted()
   }
   React.useEffect(() => {
-    if (!perpetual.profile.identified){
+    if (!token){
       console.log(`Setting-up google sign-in button`)
       gapi.signin2.render('google-sign-in', {
         'scope': 'profile email',
@@ -33,12 +29,11 @@ const SocialSignInPanel: React.FC<{}> = () => {
         'onsuccess': onSignIn,
         // 'onfailure': props.onFailure
       })
-    }  
-  }, [perpetual])
+    }
+  }, [token])
   return (
     <div>
-      <div id="google-sign-in"></div>
-      <button onClick={signOut}>Sign-out</button>
+      {!token && <div id="google-sign-in"></div>}
     </div>
   )
 }

@@ -1,28 +1,26 @@
 import React from 'react'
 import Outline from './Outline'
 import { PageProps } from '..'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { ApplicationState } from '../store'
-import { Instruction, Perpetual } from '../domain'
-import { getApi } from '../api'
 
 
 const HomePage: React.FC<PageProps> = props => {
-	const api = getApi(useDispatch())
-  const perpetual = useSelector<ApplicationState, Perpetual>(state => state.perpetual)
-	const instructions = useSelector<ApplicationState, Instruction[]>(state => state.instructions)
-	// eslint-disable-next-line
-	React.useEffect(() => { api.statement() }, [])
+  const token = useSelector<ApplicationState, string>(state => state.token)
 	return (
 		<Outline {...props}>
-			<h1>Account statement</h1>
-			{perpetual.profile.identified && instructions.map(instruction => {
-				return (
-				<div key={instruction.id}>{JSON.stringify(instruction)}</div>
-				)
-			})}
+			{token &&
+			<div>
+				<h1>You are logged in</h1>
+			</div>
+			}
+			{!token &&
+			<div>
+				<h1>Public web site</h1>
+			</div>
+			}
 		</Outline>
-	);
+	)
 }
 
 export default HomePage
