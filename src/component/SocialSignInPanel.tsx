@@ -1,24 +1,27 @@
 import React from 'react'
+import { getApi } from '../api'
+import { useDispatch } from 'react-redux'
 declare const gapi: any
 
 const SocialSignInPanel: React.FC<{}> = () => {
+  const api = getApi(useDispatch())
   const onSignIn = async (googleUser: any) => {
-    var profile = googleUser.getBasicProfile()
+    const profile = googleUser.getBasicProfile()
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    const token = googleUser.getAuthResponse().id_token
+    console.log(`Google user token: ${token}`)
+    await api.socialSignIn('google', token)
   }
   const signOut = async () => {
     const auth2 = gapi.auth2.getAuthInstance()
-    console.log(`Auth 2: ${JSON.stringify(auth2)}`)
     await auth2.signOut()
     console.log('User signed out.')
   }
   React.useEffect(() => {
     console.log(`Setting-up google sign-in button`)
-    const auth2 = gapi.auth2.getAuthInstance()
-    console.log(`Auth 2: ${JSON.stringify(auth2)}`)
     gapi.signin2.render('google-sign-in', {
       'scope': 'profile email',
       'longtitle': true,

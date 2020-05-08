@@ -31,6 +31,11 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
       dispatch({ type: 'update-token', token: token.token })
       return token
     }),
+    socialSignIn: async (social: string, identity: string) => wrap<Token>(async () => {
+      const token: Token = await client.post(`${AUTH_BASE}/social-sign-in`, {social, identity})
+      dispatch({ type: 'update-token', token: token.token })
+      return token
+    }),
     signUp: async (email: string, password: string, name: string) => wrap<void>(async () => {
       await client.post(`${AUTH_BASE}/sign-up`, { email, password, name })
     }),
