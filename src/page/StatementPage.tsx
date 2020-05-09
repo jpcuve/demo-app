@@ -5,6 +5,7 @@ import { getApi } from '../api'
 import { useDispatch, useSelector } from 'react-redux'
 import { ApplicationState } from '../store'
 import { Perpetual, Instruction } from '../domain'
+import StatementTable from '../component/StatementTable'
 
 const StatementPage: React.FC<PageProps> = props => {
 	const api = getApi(useDispatch())
@@ -20,6 +21,9 @@ const StatementPage: React.FC<PageProps> = props => {
 				<div key={instruction.id}>{JSON.stringify(instruction)}</div>
 				)
 			})}
+			<p>
+				<StatementTable currencies={perpetual.currencies} instructions={instructions}/>
+			</p>
 		</Outline>
 	);
 }
