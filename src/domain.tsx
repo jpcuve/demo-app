@@ -112,8 +112,8 @@ export const defaultPerpetual: Perpetual = {
 
 export interface Instruction {
   id: number,
-  principalId: number,
-  counterpartyId: number,
+  dbId: number,
+  crId: number,
   partyIds: number[],
   bookId: number,
   booked: string,
@@ -124,8 +124,8 @@ export interface Instruction {
 
 export const defaultInstruction: Instruction = {
   id: 0,
-  principalId: 0,
-  counterpartyId: 0,
+  dbId: 0,
+  crId: 0,
   partyIds: [0, 0],
   bookId: 0,
   booked: '00:00:00',

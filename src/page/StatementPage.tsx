@@ -16,13 +16,8 @@ const StatementPage: React.FC<PageProps> = props => {
 	return (
 		<Outline {...props}>
 			<h1>Account statement</h1>
-			{perpetual.profile.identified && instructions.map(instruction => {
-				return (
-				<div key={instruction.id}>{JSON.stringify(instruction)}</div>
-				)
-			})}
 			<p>
-				<StatementTable currencies={perpetual.currencies} instructions={instructions}/>
+				<StatementTable perpetual={perpetual} instructions={instructions}/>
 			</p>
 		</Outline>
 	);

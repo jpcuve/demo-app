@@ -21,6 +21,16 @@ form label {
   font-size: smaller;
 }
 
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+td.amount {
+  width: 5em;
+  text-align: right;
+}
+
 .error {
   color: red;
 }

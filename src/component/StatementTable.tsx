@@ -1,41 +1,72 @@
 import React from 'react'
-import { Instruction, Currency } from '../domain'
+import { Instruction, Perpetual } from '../domain'
 
 interface Props {
   instructions: Instruction[],
-  currencies: Currency[],
+  perpetual: Perpetual,
 }
 
 const StatementTable: React.FC<Props> = props => {
-  const {currencies, instructions} = props
+  const {perpetual: {currencies, account}, instructions} = props
   return (
     <table>
-      <tr>
-        <th>Book #</th>
-        <th>Moment</th>
-        <th>Type</th>
-        {currencies.map(currency => {
-          return (
-            <th>{currency.coin}</th>
-          )
-        })}
-        <th>Reference</th>
-      </tr>
+      <thead>
+        <tr>
+          <th>Book #</th>
+          <th>Moment</th>
+          <th>Type</th>
+          <th>Counterparty</th>
+          {currencies.map(currency => {
+            return (
+              <th colSpan={2}>{currency.coin}</th>
+            )
+          })}
+          <th>Reference</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          {currencies.map(currency => {
+            return (
+              <>
+                <th>DB</th>
+                <th>CR</th>
+              </>
+            )
+          })}
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
       {instructions.map(instruction => {
         return (
           <tr>
             <td>{instruction.bookId}</td>
             <td>{instruction.booked}</td>
             <td>{instruction.type}</td>
+            <td>{JSON.stringify(instruction.partyIds)}</td>
             {currencies.map(currency => {
+              const rawAmount = instruction.amount[currency.coin] || 0
+              var dbAmount = rawAmount
+              var crAmount = 0
+              if (instruction.crId === account.id){
+                dbAmount = 0
+                crAmount = rawAmount
+              }
               return (
-                <td>{instruction.amount[currency.coin] || 0}</td>
+                <>
+                  <td className="amount">{dbAmount !== 0 ? dbAmount.toFixed(2) : ''}</td>
+                  <td className="amount">{crAmount !== 0 ? crAmount.toFixed(2) : ''}</td>
+                </>
               )
             })}
             <td>{instruction.reference}</td>
           </tr>
         )
       })}
+      </tbody>
     </table>
   )
 
