@@ -11,7 +11,7 @@ import StatementPage from './page/StatementPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/dummy'>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/home" component={HomePage} />
