@@ -8,25 +8,22 @@ import { store } from '../store'
 import SocialSignInPanel from '../component/SocialSignInPanel'
 
 const SignInPage: React.FC<PageProps> = props => {
-    const api = getApi(useDispatch())
-    const signInCompleted = async () => {
-      console.log(`Sign in completed, token: ${store.getState().token}`)
-      if (store.getState().token){
-        await api.perpetual()
-        api.flash("Sign-in is successful")
-        props.history.push('/home')
-      }
+  const api = getApi(useDispatch())
+  const signInCompleted = async () => {
+    console.log(`Sign in completed, token: ${store.getState().token}`)
+    if (store.getState().token) {
+      await api.perpetual()
+      api.flash("Sign-in is successful")
+      props.history.push('/home')
     }
-      return (
-        <Outline {...props}>
-          <p>
-            <SignInForm onCompleted={signInCompleted}/>
-          </p>
-          <p>
-            <SocialSignInPanel onCompleted={signInCompleted}/>
-          </p>
-        </Outline>
-    )
+  }
+  return (
+    <Outline {...props}>
+      <SignInForm onCompleted={signInCompleted} />
+      Or
+      <SocialSignInPanel onCompleted={signInCompleted} />
+    </Outline>
+  )
 }
 
 export default SignInPage

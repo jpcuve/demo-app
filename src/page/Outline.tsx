@@ -38,8 +38,8 @@ const Outline: React.FC<RouteComponentProps> = props => {
               <ul>
                 {!token && <li ><Link to="/sign-in">Sign-in</Link></li>}
                 {!token && <li><Link to="/sign-up">Sign-up</Link></li>}
+                {!token && <li><Link to="/reset-password">Reset password</Link></li>}
                 {token && <li><Link to="/update-password">Update password</Link></li>}
-                {token && <li><Link to="/reset-password">Reset password</Link></li>}
               </ul>
             </li>
             {token && <li><Link to="/statement">Statement</Link></li>}

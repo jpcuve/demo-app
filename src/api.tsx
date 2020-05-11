@@ -44,8 +44,8 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
       dispatch({ type: 'update-token', token: token.token })
       return token
     }),
-    updatePassword: async (newPassword: string, newPasswordConfirmation: string) => wrap<void>(async () => {
-      await client.post(`${AUTH_BASE}/update-password`, { newPassword, newPasswordConfirmation })
+    updatePassword: async (newPassword: string, newPasswordConfirmation: string, token: string) => wrap<void>(async () => {
+      await client.post(`${AUTH_BASE}/update-password`, { newPassword, newPasswordConfirmation, token })
     }),
     resetPassword: async (email: string) => wrap<void>(async () => {
       await client.post(`${AUTH_BASE}/reset-password`, { email })
