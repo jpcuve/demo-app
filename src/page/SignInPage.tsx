@@ -20,7 +20,7 @@ const SignInPage: React.FC<PageProps> = props => {
   return (
     <Outline {...props}>
       <SignInForm onCompleted={signInCompleted} />
-      Or
+      <div>Or</div>
       <SocialSignInPanel onCompleted={signInCompleted} />
     </Outline>
   )
