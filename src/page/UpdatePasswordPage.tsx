@@ -1,11 +1,11 @@
 import React from 'react'
-import { PageProps } from '..'
 import Outline from './Outline'
 import UpdatePasswordForm from '../component/UpdatePasswordForm'
 import { getApi } from '../api'
 import { useDispatch } from 'react-redux'
+import { RouteComponentProps } from 'react-router'
 
-const UpdatePasswordPage: React.FC<PageProps> = props => {
+const UpdatePasswordPage: React.FC<RouteComponentProps> = props => {
   const {history, location: {search}} = props;
   const token = search.length ? search.substring(1) : '';
   const api = getApi(useDispatch())

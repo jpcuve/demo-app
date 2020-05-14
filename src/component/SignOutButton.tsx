@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { getApi } from '../api'
-import { FormProps } from '..'
+import { FormProps } from '.'
 declare const gapi: any
 
 const SignOutButton: React.FC<FormProps> = props => {

@@ -1,13 +1,13 @@
 import React from 'react'
-import { PageProps } from '..'
 import SignInForm from '../component/SignInForm'
 import Outline from './Outline'
 import { getApi } from '../api'
 import { useDispatch } from 'react-redux'
 import { store } from '../store'
 import SocialSignInPanel from '../component/SocialSignInPanel'
+import { RouteComponentProps } from 'react-router'
 
-const SignInPage: React.FC<PageProps> = props => {
+const SignInPage: React.FC<RouteComponentProps> = props => {
   const api = getApi(useDispatch())
   const signInCompleted = async () => {
     console.log(`Sign in completed, token: ${store.getState().token}`)

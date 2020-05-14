@@ -1,11 +1,11 @@
 import React from 'react'
 import Outline from './Outline'
-import { PageProps } from '..'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../store'
+import { RouteComponentProps } from 'react-router'
 
 
-const HomePage: React.FC<PageProps> = props => {
+const HomePage: React.FC<RouteComponentProps> = props => {
   const token = useSelector<ApplicationState, string>(state => state.token)
 	return (
 		<Outline {...props}>

@@ -1,9 +1,9 @@
 import React from 'react'
-import { PageProps } from '..'
 import Outline from './Outline'
 import ResetPasswordForm from '../component/ResetPasswordForm'
+import { RouteComponentProps } from 'react-router'
 
-const ResetPasswordPage: React.FC<PageProps> = props => {
+const ResetPasswordPage: React.FC<RouteComponentProps> = props => {
     return (
       <Outline {...props}>
           <ResetPasswordForm onCompleted={() => undefined}/>

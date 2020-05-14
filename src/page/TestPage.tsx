@@ -2,10 +2,10 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getApi } from '../api'
 import { ApplicationState } from '../store'
-import { PageProps } from '..'
 import Outline from './Outline'
+import { RouteComponentProps } from 'react-router'
 
-const TestPage: React.FC<PageProps> = props => {
+const TestPage: React.FC<RouteComponentProps> = props => {
   const api = getApi(useDispatch())
 	const count = useSelector<ApplicationState, number>(state => state.counter)
 	const dispatch = useDispatch()

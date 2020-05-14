@@ -2,7 +2,7 @@ import React from 'react'
 import { getApi } from '../api'
 import { useDispatch, useSelector } from 'react-redux'
 import { ApplicationState } from '../store'
-import { FormProps } from '..'
+import { FormProps } from '.'
 declare const gapi: any
 
 const SocialSignInPanel: React.FC<FormProps> = props => {
