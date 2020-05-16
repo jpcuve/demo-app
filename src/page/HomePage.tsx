@@ -3,10 +3,12 @@ import Outline from './Outline'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../store'
 import { RouteComponentProps } from 'react-router'
+import ReactMarkdown from 'react-markdown'
 
 
 const HomePage: React.FC<RouteComponentProps> = props => {
-  const token = useSelector<ApplicationState, string>(state => state.token)
+	const token = useSelector<ApplicationState, string>(state => state.token)
+	const source = '# This is a header\n\nAnd this is a paragraph'
 	return (
 		<Outline {...props}>
 			{token &&
@@ -17,6 +19,7 @@ const HomePage: React.FC<RouteComponentProps> = props => {
 			{!token &&
 			<div>
 				<h1>Public web site</h1>
+				<ReactMarkdown source={source}/>
 			</div>
 			}
 		</Outline>

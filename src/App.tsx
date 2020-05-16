@@ -8,6 +8,7 @@ import SignUpPage from './page/SignUpPage';
 import UpdatePasswordPage from './page/UpdatePasswordPage';
 import ResetPasswordPage from './page/ResetPasswordPage';
 import StatementPage from './page/StatementPage';
+import FirebasePage from './page/FirebasePage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/sign-up" component={SignUpPage} />
         <Route path="/update-password" component={UpdatePasswordPage}/>
         <Route path="/reset-password" component={ResetPasswordPage}/>
+        <Route path="/firebase" component={FirebasePage}/>
         <Route path="/statement" component={StatementPage}/>
         <Route path="/test" component={TestPage} />
         <Route render={() => (<div>No match</div>)} />
