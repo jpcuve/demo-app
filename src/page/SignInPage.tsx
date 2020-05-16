@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux'
 import { store } from '../store'
 import SocialSignInPanel from '../component/SocialSignInPanel'
 import { RouteComponentProps } from 'react-router'
-import FirebaseSignInPanel from '../component/FirebaseSignInPanel'
 
 const SignInPage: React.FC<RouteComponentProps> = props => {
   const api = getApi(useDispatch())

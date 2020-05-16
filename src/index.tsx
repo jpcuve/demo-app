@@ -7,15 +7,17 @@ import { Provider } from 'react-redux'
 import { store } from './store'
 import firebase from 'firebase'
 
+console.log(`Env: ${JSON.stringify(process.env)}`)
+
 firebase.initializeApp({
-  apiKey: "AIzaSyCUhma0HQvWylRwZhfDhsB92kebrKHD7OA",
-  authDomain: "fir-54071.firebaseapp.com",
-  databaseURL: "https://fir-54071.firebaseio.com",
-  projectId: "fir-54071",
-  storageBucket: "fir-54071.appspot.com",
-  messagingSenderId: "784351879169",
-  appId: "1:784351879169:web:230c9da7ef26fb7e88a000",
-  measurementId: "G-6T38HP0TYC",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 })
 
 ReactDOM.render(
