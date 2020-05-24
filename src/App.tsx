@@ -11,30 +11,34 @@ import StatementPage from './page/StatementPage';
 import FirebasePage from './page/FirebasePage';
 import firebase from 'firebase'
 import AuthPage from './page/AuthPage';
-import { store } from './store';
 import { getApi } from './api';
 import { useDispatch } from 'react-redux';
 
 function App() {
   const api = getApi(useDispatch())
   React.useEffect(() => {
-    const unregister = firebase.auth().onAuthStateChanged((user: any) => {
+    const unregister = firebase.auth().onAuthStateChanged(async (user: any) => {
       // user is authenticated here and can be safely transmitted to background server
       // to get a token in return
       if (user){
-        console.log(`User signed in: ${JSON.stringify(user)}, anonymous: ${user.isAnonymous}, id: ${user.uid}`)
-        api.firebaseSignIn(user)
+        console.log(`User signed in: ${user.uid} ${user.email}, anonymous: ${user.isAnonymous}, id: ${user.uid}`)
+        await api.firebaseSignIn(user)
+        await api.perpetual()
       } else {
         console.log('User signed out')
+        // if no user already signed in, perform anonymous sign in
+        try{
+          await console.log('Attempting anonymous sign-in (allow in firebase console)')
+          await firebase.auth().signInAnonymously()
+        } catch(e){
+          console.log(`Anonymous sign-in error: ${e.code} ${e.message}`)
+        }
       }
     })
-    return () => unregister()
+    return () => {
+      unregister()
+    }
   }, [api])
-  try{
-    firebase.auth().signInAnonymously()
-  } catch(e){
-    console.log(`Anonymous sign-in error: ${e.code} ${e.message}`)
-  }
 
   return (
     <BrowserRouter basename='/dummy'>

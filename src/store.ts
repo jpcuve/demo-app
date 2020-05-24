@@ -23,7 +23,7 @@ const defaultApplicationState: ApplicationState = {
 }
 
 const rootReducer = (state: ApplicationState = defaultApplicationState, action: AnyAction) => {
-  console.log(`Reducer is called, state: ${JSON.stringify(state)} action: ${JSON.stringify(action)}`)
+  console.log(`Reducer is called, action: ${JSON.stringify(action)}`)
   switch (action.type) {
     case 'increment-counter':
       return { ...state, counter: state.counter + 1 }

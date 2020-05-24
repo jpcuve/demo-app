@@ -1,18 +1,21 @@
 import React from 'react'
 import { RouteComponentProps, Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { ApplicationState } from '../store'
 import { Perpetual } from '../domain'
 import SignOutButton from '../component/SignOutButton'
 import firebase from 'firebase'
 
 const Outline: React.FC<RouteComponentProps> = props => {
+  const dispatch = useDispatch()
   const token = useSelector<ApplicationState, string>(state => state.token)
   const errors = useSelector<ApplicationState, string[]>(state => state.errors)
   const flash = useSelector<ApplicationState, string>(state => state.flash)
   const fetching = useSelector<ApplicationState, boolean>(state => state.fetching)
   const perpetual = useSelector<ApplicationState, Perpetual>(state => state.perpetual)
-  const signOutCompleted = () => {
+  const signOut = async () => {
+    await firebase.auth().signOut()
+    await dispatch({type: 'update-token', token: ''})
     props.history.push('/')
   }
   return (
@@ -39,7 +42,7 @@ const Outline: React.FC<RouteComponentProps> = props => {
             <li><Link to="/test">Test</Link></li>
           </ul>
         </nav>
-        {token && <button onClick={() => firebase.auth().signOut()}>Sign-out</button>}
+        {token && <button onClick={signOut}>Sign-out</button>}
       </div>      
       <div className="right">
         {props.children}

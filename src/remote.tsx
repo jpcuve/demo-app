@@ -22,13 +22,13 @@ const client: any = {
       }
       options.body = body;
     }
-    console.debug(JSON.stringify(options))
+    // console.debug(JSON.stringify(options))
     const res = await fetch(`${BASE_URL}${endPoint}`, options)
     if (!res.ok){
       throw Error(`Http error: ${res.status} ${res.statusText}`)
     }
     const json = await res.json()
-    console.debug(JSON.stringify(json))
+    // console.debug(JSON.stringify(json))
     if ('error' in json) {
       throw Error(json.error)
     }

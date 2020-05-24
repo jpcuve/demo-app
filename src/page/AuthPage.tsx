@@ -7,6 +7,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 
 const uiConfig = {
     signInFlow: 'popup',
+    signInSuccessUrl: '/',
     signinOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -28,7 +29,7 @@ const uiConfig = {
     ],
     callbacks: {
       signInSuccessWithAuthResult: (authResult: any, redirectUrl: string) => {
-        return false  // no redirect
+        return true  // false: no redirect
       },
       signInFailure: async (error: any) => {
         console.log(`Error: ${error.code} ${JSON.stringify(error.credential)}`)

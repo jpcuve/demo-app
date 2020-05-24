@@ -12,8 +12,6 @@ const SignInPage: React.FC<RouteComponentProps> = props => {
   const signInCompleted = async () => {
     console.log(`Sign in completed, token: ${store.getState().token}`)
     if (store.getState().token) {
-      await api.perpetual()
-      api.flash("Sign-in is successful")
       props.history.push('/home')
     }
   }
