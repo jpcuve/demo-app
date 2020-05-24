@@ -36,7 +36,7 @@ function App() {
   }, [api])
 
   return (
-    <BrowserRouter basename='/dummy'>
+    <BrowserRouter basename=''>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/home" component={HomePage} />

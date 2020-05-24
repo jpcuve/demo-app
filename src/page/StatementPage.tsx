@@ -1,5 +1,5 @@
 import React from 'react'
-import Outline from './Outline'
+import Outline from './PageTemplate'
 import { getApi } from '../api'
 import { useDispatch, useSelector } from 'react-redux'
 import { ApplicationState } from '../store'

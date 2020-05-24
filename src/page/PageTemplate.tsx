@@ -5,7 +5,7 @@ import { ApplicationState } from '../store'
 import { Perpetual } from '../domain'
 import firebase from 'firebase'
 
-const Outline: React.FC<RouteComponentProps> = props => {
+const PageTemplate: React.FC<RouteComponentProps> = props => {
   const dispatch = useDispatch()
   const token = useSelector<ApplicationState, string>(state => state.token)
   const errors = useSelector<ApplicationState, string[]>(state => state.errors)
@@ -50,4 +50,4 @@ const Outline: React.FC<RouteComponentProps> = props => {
   )
 }
 
-export default Outline
+export default PageTemplate

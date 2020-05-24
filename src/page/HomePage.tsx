@@ -1,5 +1,5 @@
 import React from 'react'
-import Outline from './Outline'
+import Outline from './PageTemplate'
 import { useSelector } from 'react-redux'
 import { ApplicationState } from '../store'
 import { RouteComponentProps } from 'react-router'

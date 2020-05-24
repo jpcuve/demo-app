@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getApi } from '../api'
 import { ApplicationState } from '../store'
-import Outline from './Outline'
+import Outline from './PageTemplate'
 import { RouteComponentProps } from 'react-router'
 
 const TestPage: React.FC<RouteComponentProps> = props => {
