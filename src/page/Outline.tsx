@@ -33,16 +33,7 @@ const Outline: React.FC<RouteComponentProps> = props => {
         <nav>
           <ul>
             <li><Link to="/home">Home</Link></li>
-            <li>
-              <span>Auth</span>
-              <ul>
-                {!token && <li ><Link to="/sign-in">Sign-in</Link></li>}
-                {!token && <li><Link to="/sign-up">Sign-up</Link></li>}
-                {!token && <li><Link to="/reset-password">Reset password</Link></li>}
-                {token && <li><Link to="/update-password">Update password</Link></li>}
-                <li><Link to="/firebase">Firebase</Link></li>
-              </ul>
-            </li>
+            <li><Link to="/auth">Auth</Link></li>
             {token && <li><Link to="/statement">Statement</Link></li>}
             <li><Link to="/test">Test</Link></li>
           </ul>

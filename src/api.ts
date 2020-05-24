@@ -36,6 +36,11 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
       dispatch({ type: 'update-token', token: token.token })
       return token
     }),
+    firebaseSignIn: async (user: any) => wrap<Token>(async () => {
+      const token: Token = await client.post(`${AUTH_BASE}/firebase-sign-in`, user)
+      dispatch({ type: 'update-token', token: token.token })
+      return token
+    }),
     signUp: async (email: string, password: string, name: string) => wrap<void>(async () => {
       await client.post(`${AUTH_BASE}/sign-up`, { email, password, name })
     }),

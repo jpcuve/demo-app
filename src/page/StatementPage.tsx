@@ -16,9 +16,9 @@ const StatementPage: React.FC<RouteComponentProps> = props => {
 	return (
 		<Outline {...props}>
 			<h1>Account statement</h1>
-			<p>
+			<div>
 				<StatementTable perpetual={perpetual} instructions={instructions}/>
-			</p>
+			</div>
 		</Outline>
 	);
 }

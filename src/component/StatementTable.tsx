@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Instruction, Perpetual } from '../domain'
 
 interface Props {
@@ -18,7 +18,7 @@ const StatementTable: React.FC<Props> = props => {
           <th>Counterparty</th>
           {currencies.map(currency => {
             return (
-              <th colSpan={2}>{currency.coin}</th>
+              <th key={currency.coin} colSpan={2}>{currency.coin}</th>
             )
           })}
           <th>Reference</th>
@@ -30,10 +30,10 @@ const StatementTable: React.FC<Props> = props => {
           <th></th>
           {currencies.map(currency => {
             return (
-              <>
+              <Fragment key={currency.coin}>
                 <th>DB</th>
                 <th>CR</th>
-              </>
+              </Fragment>
             )
           })}
           <th></th>
@@ -43,7 +43,7 @@ const StatementTable: React.FC<Props> = props => {
       {instructions.map(instruction => {
         return (
           <tr>
-            <td>{instruction.bookId}</td>
+            <td key={instruction.id}>{instruction.bookId}</td>
             <td>{instruction.booked}</td>
             <td>{instruction.type}</td>
             <td>{JSON.stringify(instruction.partyIds)}</td>
