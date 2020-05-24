@@ -3,7 +3,6 @@ import { RouteComponentProps, Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { ApplicationState } from '../store'
 import { Perpetual } from '../domain'
-import SignOutButton from '../component/SignOutButton'
 import firebase from 'firebase'
 
 const Outline: React.FC<RouteComponentProps> = props => {
