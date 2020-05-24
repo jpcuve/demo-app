@@ -9,8 +9,27 @@ import UpdatePasswordPage from './page/UpdatePasswordPage';
 import ResetPasswordPage from './page/ResetPasswordPage';
 import StatementPage from './page/StatementPage';
 import FirebasePage from './page/FirebasePage';
+import firebase from 'firebase'
 
 function App() {
+  React.useEffect(() => {
+    const unregister = firebase.auth().onAuthStateChanged((user: any) => {
+      // user is authenticated here and can be safely transmitted to background server
+      // to get a token in return
+      if (user){
+        console.log(`User signed in: ${JSON.stringify(user)}, anonymous: ${user.isAnonymous}, id: ${user.uid}`)
+      } else {
+        console.log('User signed out')
+      }
+    })
+    return () => unregister()
+  }, [])
+  try{
+    firebase.auth().signInAnonymously()
+  } catch(e){
+    console.log(`Anonymous sign-in error: ${e.code} ${e.message}`)
+  }
+
   return (
     <BrowserRouter basename='/dummy'>
       <Switch>
