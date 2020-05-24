@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { ApplicationState } from '../store'
 import { Perpetual } from '../domain'
 import SignOutButton from '../component/SignOutButton'
+import firebase from 'firebase'
 
 const Outline: React.FC<RouteComponentProps> = props => {
   const token = useSelector<ApplicationState, string>(state => state.token)
@@ -38,7 +39,7 @@ const Outline: React.FC<RouteComponentProps> = props => {
             <li><Link to="/test">Test</Link></li>
           </ul>
         </nav>
-        {token && <SignOutButton onCompleted={signOutCompleted}/>}
+        {token && <button onClick={() => firebase.auth().signOut()}>Sign-out</button>}
       </div>      
       <div className="right">
         {props.children}

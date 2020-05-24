@@ -56,10 +56,10 @@ const StatementTable: React.FC<Props> = props => {
                 crAmount = rawAmount
               }
               return (
-                <>
+                <Fragment key={currency.coin}>
                   <td className="amount">{dbAmount !== 0 ? dbAmount.toFixed(2) : ''}</td>
                   <td className="amount">{crAmount !== 0 ? crAmount.toFixed(2) : ''}</td>
-                </>
+                </Fragment>
               )
             })}
             <td>{instruction.reference}</td>
