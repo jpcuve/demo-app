@@ -8,11 +8,13 @@ import StatementTable from '../component/StatementTable'
 import { RouteComponentProps } from 'react-router'
 
 const StatementPage: React.FC<RouteComponentProps> = props => {
-	const api = getApi(useDispatch())
+	const dispatch = useDispatch()
   const perpetual = useSelector<ApplicationState, Perpetual>(state => state.perpetual)
 	const instructions = useSelector<ApplicationState, Instruction[]>(state => state.instructions)
-	// eslint-disable-next-line
-	React.useEffect(() => { api.statement() }, [])
+	React.useEffect(() => { 
+		const api = getApi(dispatch)
+		api.statement() 
+	}, [dispatch])
 	return (
 		<Outline {...props}>
 			<h1>Account statement</h1>

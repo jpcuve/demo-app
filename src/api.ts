@@ -26,34 +26,10 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
         dispatch({type: 'update-flash', flash: 'Ready'})
       }, 3000)
     },
-    signIn: async (email: string, password: string) => wrap<Token>(async () => {
-      const token: Token = await client.post(`${AUTH_BASE}/sign-in`, { email, password })
-      dispatch({ type: 'update-token', token: token.token })
-      return token
-    }),
-    socialSignIn: async (social: string, identity: string) => wrap<Token>(async () => {
-      const token: Token = await client.post(`${AUTH_BASE}/social-sign-in`, {social, identity})
-      dispatch({ type: 'update-token', token: token.token })
-      return token
-    }),
     firebaseSignIn: async (user: any) => wrap<Token>(async () => {
       const token: Token = await client.post(`${AUTH_BASE}/firebase-sign-in`, user)
       dispatch({ type: 'update-token', token: token.token })
       return token
-    }),
-    signUp: async (email: string, password: string, name: string) => wrap<void>(async () => {
-      await client.post(`${AUTH_BASE}/sign-up`, { email, password, name })
-    }),
-    signOut: async () => wrap<Token>(async () => {
-      const token: Token = await client.get(`${AUTH_BASE}/sign-out`)
-      dispatch({ type: 'update-token', token: token.token })
-      return token
-    }),
-    updatePassword: async (newPassword: string, newPasswordConfirmation: string, token: string) => wrap<void>(async () => {
-      await client.post(`${AUTH_BASE}/update-password`, { newPassword, newPasswordConfirmation, token })
-    }),
-    resetPassword: async (email: string) => wrap<void>(async () => {
-      await client.post(`${AUTH_BASE}/reset-password`, { email })
     }),
     perpetual: async () => wrap<Perpetual>(async () => {
       const perpetual: Perpetual = await client.get(`${MASTER_BASE}/perpetual`)
