@@ -10,6 +10,7 @@ export interface ApplicationState {
   counter: number,
   perpetual: Perpetual,
   instructions: Instruction[],
+  messagingToken?: string,
 }
 
 const defaultApplicationState: ApplicationState = {
@@ -39,6 +40,8 @@ const rootReducer = (state: ApplicationState = defaultApplicationState, action: 
       return { ...state, perpetual: action.perpetual }
     case 'update-instructions':
       return { ...state, instructions: action.instructions }
+    case 'update-messaging-token':
+      return { ...state, messagingToken: action.messagingToken }
   }
   return state
 }

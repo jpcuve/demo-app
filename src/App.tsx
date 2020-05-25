@@ -44,6 +44,7 @@ function App() {
       console.log(`Asking for permission to generate app instance id token`)
       console.log(`Updating UI for push permission required`)
     }
+    dispatch({type: 'update-messaging-token', messagingToken: currentToken})
 
   }).catch(err => {
     console.log(`Error while retrieving token: ${err}`)

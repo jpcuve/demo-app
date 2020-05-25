@@ -12,6 +12,7 @@ const PageTemplate: React.FC<RouteComponentProps> = props => {
   const flash = useSelector<ApplicationState, string>(state => state.flash)
   const fetching = useSelector<ApplicationState, boolean>(state => state.fetching)
   const perpetual = useSelector<ApplicationState, Perpetual>(state => state.perpetual)
+  const messagingToken = useSelector<ApplicationState, string|undefined>(state => state.messagingToken)
   const signOut = async () => {
     await firebase.auth().signOut()
     await dispatch({type: 'update-token', token: ''})
@@ -19,6 +20,7 @@ const PageTemplate: React.FC<RouteComponentProps> = props => {
   }
   return (
     <div>
+      <div>Messaging token: {messagingToken}</div>
       {token && <div>User: {perpetual.profile.name} &nbsp; Account: {perpetual.account.name} &nbsp; Bank: {perpetual.bank.name}</div>}
       {!token && <div>Public</div>}
       {flash && <div className="flash">{flash}</div>}

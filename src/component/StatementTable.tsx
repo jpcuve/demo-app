@@ -42,8 +42,8 @@ const StatementTable: React.FC<Props> = props => {
       <tbody>
       {instructions.map(instruction => {
         return (
-          <tr>
-            <td key={instruction.id}>{instruction.bookId}</td>
+          <tr key={instruction.id}>
+            <td>{instruction.bookId}</td>
             <td>{instruction.booked}</td>
             <td>{instruction.type}</td>
             <td>{JSON.stringify(instruction.partyIds)}</td>
