@@ -46,13 +46,18 @@ function App() {
         console.log(`Asking for permission to generate app instance id token`)
         console.log(`Updating UI for push permission required`)
       }
-      dispatch({type: 'update-messaging-token', messagingToken: currentToken})
+      const api = getApi(dispatch)
+      api.updateMessagingToken(currentToken)
     } catch(err) {
       console.log(`Error while retrieving token: ${err}`)
     }
   }
   initMessaging()
   messaging.onTokenRefresh(() => initMessaging())
+  console.log('Setting up message receiver')
+  messaging.onMessage((payload: any) => {
+    console.log(`Received message: ${JSON.stringify(payload)}`)
+  })
 
   return (
     <BrowserRouter basename=''>

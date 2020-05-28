@@ -21,6 +21,6 @@
     "sourceMap": true,
   },
   "include": [
-    "src"
+    "src", "public/firebase-messaging-sw.js"
   ]
 }
