@@ -35,20 +35,24 @@ function App() {
       unregister()
     }
   }, [dispatch])
-
-  messaging.getToken().then(currentToken => {
-    const api = getApi(dispatch)
-    if (currentToken){
-      console.log(`Sending token to server: ${currentToken}`)
-      console.log(`Updating UI for push enabled`)
-    } else {
-      console.log(`Asking for permission to generate app instance id token`)
-      console.log(`Updating UI for push permission required`)
+  
+  const initMessaging = async () => {
+    try {
+      const currentToken = await messaging.getToken()
+      if (currentToken){
+        console.log(`Sending token to server: ${currentToken}`)
+        console.log(`Updating UI for push enabled`)
+      } else {
+        console.log(`Asking for permission to generate app instance id token`)
+        console.log(`Updating UI for push permission required`)
+      }
+      dispatch({type: 'update-messaging-token', messagingToken: currentToken})
+    } catch(err) {
+      console.log(`Error while retrieving token: ${err}`)
     }
-    api.updateMessagingToken(currentToken)
-  }).catch(err => {
-    console.log(`Error while processing messaging token: ${err}`)
-  })
+  }
+  initMessaging()
+  messaging.onTokenRefresh(() => initMessaging())
 
   return (
     <BrowserRouter basename=''>
