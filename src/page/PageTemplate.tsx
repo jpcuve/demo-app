@@ -7,7 +7,7 @@ import firebase from 'firebase'
 
 const PageTemplate: React.FC<RouteComponentProps> = props => {
   const dispatch = useDispatch()
-  const token = useSelector<ApplicationState, string>(state => state.token)
+  const accessToken = useSelector<ApplicationState, string|undefined>(state => state.accessToken)
   const errors = useSelector<ApplicationState, string[]>(state => state.errors)
   const flash = useSelector<ApplicationState, string>(state => state.flash)
   const fetching = useSelector<ApplicationState, boolean>(state => state.fetching)
@@ -15,14 +15,14 @@ const PageTemplate: React.FC<RouteComponentProps> = props => {
   const messagingToken = useSelector<ApplicationState, string|undefined>(state => state.messagingToken)
   const signOut = async () => {
     await firebase.auth().signOut()
-    await dispatch({type: 'update-token', token: ''})
+    await dispatch({type: 'update-access-token', accessToken: undefined})
     props.history.push('/')
   }
   return (
     <div>
       <div>Messaging token: {messagingToken}</div>
-      {token && <div>User: {perpetual.profile.name} &nbsp; Account: {perpetual.account.name} &nbsp; Bank: {perpetual.bank.name}</div>}
-      {!token && <div>Public</div>}
+      {accessToken && <div>User: {perpetual.profile.name} &nbsp; Account: {perpetual.account.name} &nbsp; Bank: {perpetual.bank.name}</div>}
+      {!accessToken && <div>Public</div>}
       {flash && <div className="flash">{flash}</div>}
       <div>
         <ul className='error'>
@@ -39,11 +39,11 @@ const PageTemplate: React.FC<RouteComponentProps> = props => {
           <ul>
             <li><Link to="/home">Home</Link></li>
             <li><Link to="/auth">Auth</Link></li>
-            {token && <li><Link to="/statement">Statement</Link></li>}
+            {accessToken && <li><Link to="/statement">Statement</Link></li>}
             <li><Link to="/test">Test</Link></li>
           </ul>
         </nav>
-        {token && <button onClick={signOut}>Sign-out</button>}
+        {accessToken && <button onClick={signOut}>Sign-out</button>}
       </div>      
       <div className="right">
         {props.children}

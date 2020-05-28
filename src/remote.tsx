@@ -11,9 +11,9 @@ const client: any = {
       },
       // credentials: 'include',
     };
-    const token = localStorage.getItem('TOKEN') || ''
-    if (token){
-      options.headers['Authorization'] = `Bearer ${token}`
+    const accessToken = localStorage.getItem('TOKEN') || ''
+    if (accessToken){
+      options.headers['Authorization'] = `Bearer ${accessToken}`
       options.credentials = 'include'
     }
     if (body){

@@ -37,6 +37,7 @@ function App() {
   }, [dispatch])
 
   messaging.getToken().then(currentToken => {
+    const api = getApi(dispatch)
     if (currentToken){
       console.log(`Sending token to server: ${currentToken}`)
       console.log(`Updating UI for push enabled`)
@@ -44,10 +45,9 @@ function App() {
       console.log(`Asking for permission to generate app instance id token`)
       console.log(`Updating UI for push permission required`)
     }
-    dispatch({type: 'update-messaging-token', messagingToken: currentToken})
-
+    api.updateMessagingToken(currentToken)
   }).catch(err => {
-    console.log(`Error while retrieving token: ${err}`)
+    console.log(`Error while processing messaging token: ${err}`)
   })
 
   return (

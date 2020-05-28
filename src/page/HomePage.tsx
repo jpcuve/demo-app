@@ -7,16 +7,16 @@ import ReactMarkdown from 'react-markdown'
 
 
 const HomePage: React.FC<RouteComponentProps> = props => {
-	const token = useSelector<ApplicationState, string>(state => state.token)
+	const accessToken = useSelector<ApplicationState, string|undefined>(state => state.accessToken)
 	const source = '# This is a header\n\nAnd this is a paragraph'
 	return (
 		<Outline {...props}>
-			{token &&
+			{accessToken &&
 			<div>
 				<h1>You are logged in</h1>
 			</div>
 			}
-			{!token &&
+			{!accessToken &&
 			<div>
 				<h1>Public web site</h1>
 				<ReactMarkdown source={source}/>

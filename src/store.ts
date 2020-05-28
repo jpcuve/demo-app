@@ -6,7 +6,7 @@ export interface ApplicationState {
   fetching: boolean,
   errors: string[],
   flash: string,
-  token: string,
+  accessToken?: string,
   counter: number,
   perpetual: Perpetual,
   instructions: Instruction[],
@@ -17,7 +17,6 @@ const defaultApplicationState: ApplicationState = {
   fetching: false,
   errors: [],
   flash: 'Ready',
-  token: '',
   counter: 0,
   perpetual: defaultPerpetual,
   instructions: [],
@@ -28,8 +27,8 @@ const rootReducer = (state: ApplicationState = defaultApplicationState, action: 
   switch (action.type) {
     case 'increment-counter':
       return { ...state, counter: state.counter + 1 }
-    case 'update-token':
-      return { ...state, token: action.token }
+    case 'update-access-token':
+      return { ...state, accessToken: action.accessToken }
     case 'update-fetching':
       return { ...state, fetching: action.fetching }
     case 'update-errors':
@@ -46,12 +45,18 @@ const rootReducer = (state: ApplicationState = defaultApplicationState, action: 
   return state
 }
 
-const token = localStorage.getItem('TOKEN') || ''
-export const store = createStore(rootReducer, { ...defaultApplicationState, token })
-if (token){
+let accessToken = localStorage.getItem('TOKEN') || undefined
+export const store = createStore(rootReducer, { ...defaultApplicationState, accessToken })
+if (accessToken && accessToken !== "undefined"){
+  console.log('FETCHING PERPETUAL')
   client.get(`/master/perpetual`).then((perpetual: Perpetual) => store.dispatch({type: 'update-perpetual', perpetual}))
 }
+
 store.subscribe(() => {
-  localStorage.setItem('TOKEN', store.getState().token)
+  if (store.getState().accessToken){
+    localStorage.setItem('TOKEN', store.getState().accessToken as string)
+  } else {
+    localStorage.removeItem('TOKEN')
+  }
 })
 

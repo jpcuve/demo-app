@@ -28,8 +28,12 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
     },
     firebaseSignIn: async (user: any) => wrap<Token>(async () => {
       const token: Token = await client.post(`${AUTH_BASE}/firebase-sign-in`, user)
-      dispatch({ type: 'update-token', token: token.token })
+      dispatch({ type: 'update-access-token', accessToken: token.token })
       return token
+    }),
+    updateMessagingToken: (messagingToken: string) => wrap(async () => {
+      const token: Token = await client.post(`${AUTH_BASE}/update-messaging-token`, {token: messagingToken})
+      dispatch({ type: 'update-messaging-token', messagingToken: token.token})
     }),
     perpetual: async () => wrap<Perpetual>(async () => {
       const perpetual: Perpetual = await client.get(`${MASTER_BASE}/perpetual`)
