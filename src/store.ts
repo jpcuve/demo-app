@@ -47,8 +47,7 @@ const rootReducer = (state: ApplicationState = defaultApplicationState, action: 
 
 let accessToken = localStorage.getItem('TOKEN') || undefined
 export const store = createStore(rootReducer, { ...defaultApplicationState, accessToken })
-if (accessToken && accessToken !== "undefined"){
-  console.log('FETCHING PERPETUAL')
+if (accessToken){
   client.get(`/master/perpetual`).then((perpetual: Perpetual) => store.dispatch({type: 'update-perpetual', perpetual}))
 }
 
