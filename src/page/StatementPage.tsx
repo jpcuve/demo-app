@@ -9,7 +9,7 @@ import { RouteComponentProps } from 'react-router'
 
 const StatementPage: React.FC<RouteComponentProps> = props => {
 	const dispatch = useDispatch()
-  const perpetual = useSelector<ApplicationState, Perpetual>(state => state.perpetual)
+  const perpetual = useSelector<ApplicationState, Perpetual|undefined>(state => state.perpetual)
 	const instructions = useSelector<ApplicationState, Instruction[]>(state => state.instructions)
 	React.useEffect(() => { 
 		const api = getApi(dispatch)
@@ -19,7 +19,7 @@ const StatementPage: React.FC<RouteComponentProps> = props => {
 		<Outline {...props}>
 			<h1>Account statement</h1>
 			<div>
-				<StatementTable perpetual={perpetual} instructions={instructions}/>
+				{perpetual && <StatementTable perpetual={perpetual} instructions={instructions}/>}
 			</div>
 		</Outline>
 	);

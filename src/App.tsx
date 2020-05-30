@@ -30,6 +30,7 @@ function App() {
           console.log(`Anonymous sign-in error: ${e.code} ${e.message}`)
         }
       }
+      await api.perpetual()
     })
     return () => {
       unregister()

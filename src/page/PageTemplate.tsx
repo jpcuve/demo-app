@@ -11,7 +11,7 @@ const PageTemplate: React.FC<RouteComponentProps> = props => {
   const errors = useSelector<ApplicationState, string[]>(state => state.errors)
   const flash = useSelector<ApplicationState, string>(state => state.flash)
   const fetching = useSelector<ApplicationState, boolean>(state => state.fetching)
-  const perpetual = useSelector<ApplicationState, Perpetual>(state => state.perpetual)
+  const perpetual = useSelector<ApplicationState, Perpetual|undefined>(state => state.perpetual)
   const messagingToken = useSelector<ApplicationState, string|undefined>(state => state.messagingToken)
   const signOut = async () => {
     await firebase.auth().signOut()
@@ -22,8 +22,8 @@ const PageTemplate: React.FC<RouteComponentProps> = props => {
     <div>
       <div>Access token: {accessToken}</div>
       <div>Messaging token: {messagingToken}</div>
-      {accessToken && <div>User: {perpetual.profile.name} &nbsp; Account: {perpetual.account.name} &nbsp; Bank: {perpetual.bank.name}</div>}
-      {!accessToken && <div>Public</div>}
+      {perpetual && <div>User: {perpetual.profile.name} &nbsp; Account: {perpetual.account.name} &nbsp; Bank: {perpetual.bank.name}</div>}
+      {!perpetual && <div>Public</div>}
       {flash && <div className="flash">{flash}</div>}
       <div>
         <ul className='error'>
@@ -44,7 +44,7 @@ const PageTemplate: React.FC<RouteComponentProps> = props => {
             <li><Link to="/test">Test</Link></li>
           </ul>
         </nav>
-        {accessToken && <button onClick={signOut}>Sign-out</button>}
+        {perpetual && <button onClick={signOut}>Sign-out</button>}
       </div>      
       <div className="right">
         {props.children}

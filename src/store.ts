@@ -1,5 +1,5 @@
 import { AnyAction, createStore } from "redux"
-import { Perpetual, defaultPerpetual, Instruction } from "./domain"
+import { Perpetual, Instruction } from "./domain"
 
 export interface ApplicationState {
   fetching: boolean,
@@ -7,7 +7,7 @@ export interface ApplicationState {
   flash: string,
   accessToken?: string,
   counter: number,
-  perpetual: Perpetual,
+  perpetual?: Perpetual,
   instructions: Instruction[],
   messagingToken?: string,
 }
@@ -17,7 +17,6 @@ const defaultApplicationState: ApplicationState = {
   errors: [],
   flash: 'Ready',
   counter: 0,
-  perpetual: defaultPerpetual,
   instructions: [],
 }
 
