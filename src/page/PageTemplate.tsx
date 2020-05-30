@@ -4,23 +4,23 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ApplicationState } from '../store'
 import { Perpetual } from '../domain'
 import firebase from 'firebase'
+import { getApi } from '../api'
 
 const PageTemplate: React.FC<RouteComponentProps> = props => {
   const dispatch = useDispatch()
-  const accessToken = useSelector<ApplicationState, string|undefined>(state => state.accessToken)
   const errors = useSelector<ApplicationState, string[]>(state => state.errors)
   const flash = useSelector<ApplicationState, string>(state => state.flash)
   const fetching = useSelector<ApplicationState, boolean>(state => state.fetching)
   const perpetual = useSelector<ApplicationState, Perpetual|undefined>(state => state.perpetual)
   const messagingToken = useSelector<ApplicationState, string|undefined>(state => state.messagingToken)
   const signOut = async () => {
+    const api = getApi(dispatch)
     await firebase.auth().signOut()
-    await dispatch({type: 'update-access-token', accessToken: undefined})
+    await api.signOut()
     props.history.push('/')
   }
   return (
     <div>
-      <div>Access token: {accessToken}</div>
       <div>Messaging token: {messagingToken}</div>
       {perpetual && <div>User: {perpetual.profile.name} &nbsp; Account: {perpetual.account.name} &nbsp; Bank: {perpetual.bank.name}</div>}
       {!perpetual && <div>Public</div>}
@@ -40,7 +40,7 @@ const PageTemplate: React.FC<RouteComponentProps> = props => {
           <ul>
             <li><Link to="/home">Home</Link></li>
             <li><Link to="/auth">Auth</Link></li>
-            {accessToken && <li><Link to="/statement">Statement</Link></li>}
+            {perpetual && <li><Link to="/statement">Statement</Link></li>}
             <li><Link to="/test">Test</Link></li>
           </ul>
         </nav>

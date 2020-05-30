@@ -5,7 +5,6 @@ export interface ApplicationState {
   fetching: boolean,
   errors: string[],
   flash: string,
-  accessToken?: string,
   counter: number,
   perpetual?: Perpetual,
   instructions: Instruction[],
@@ -25,8 +24,6 @@ const rootReducer = (state: ApplicationState = defaultApplicationState, action: 
   switch (action.type) {
     case 'increment-counter':
       return { ...state, counter: state.counter + 1 }
-    case 'update-access-token':
-      return { ...state, accessToken: action.accessToken }
     case 'update-fetching':
       return { ...state, fetching: action.fetching }
     case 'update-errors':

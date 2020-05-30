@@ -28,8 +28,12 @@ export const getApi = (dispatch: Dispatch<AnyAction>) => {
     },
     firebaseSignIn: async (user: any) => wrap<Token>(async () => {
       const token: Token = await client.post(`${AUTH_BASE}/firebase-sign-in`, user)
-      dispatch({ type: 'update-access-token', accessToken: token.token })
+      localStorage.setItem('TOKEN', token.token)
       return token
+    }),
+    signOut: async () => wrap(async () => {
+      await client.get(`${AUTH_BASE}/sign-out`)
+      localStorage.removeItem('TOKEN')
     }),
     updateMessagingToken: (messagingToken: string) => wrap(async () => {
       const token: Token = await client.post(`${AUTH_BASE}/update-messaging-token`, {token: messagingToken})
