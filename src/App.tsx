@@ -20,6 +20,7 @@ function App() {
       if (user){
         console.log(`User signed in: ${user.uid} ${user.email}, anonymous: ${user.isAnonymous}, id: ${user.uid}`)
         await api.firebaseSignIn(user)
+        await api.perpetual()
       } else {
         console.log('User signed out')
         // if no user already signed in, perform anonymous sign in
@@ -30,7 +31,6 @@ function App() {
           console.log(`Anonymous sign-in error: ${e.code} ${e.message}`)
         }
       }
-      await api.perpetual()
     })
     return () => {
       unregister()
