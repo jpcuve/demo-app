@@ -25,8 +25,7 @@ function App() {
         console.log('User signed out')
         // if no user already signed in, perform anonymous sign in
         try{
-          await console.log('Attempting anonymous sign-in (allow in firebase console)')
-          await auth.signInAnonymously()
+          await auth.signInAnonymously()  // this will trigger the callback again
         } catch(e){
           console.log(`Anonymous sign-in error: ${e.code} ${e.message}`)
         }
