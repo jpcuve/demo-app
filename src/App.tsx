@@ -1,14 +1,14 @@
-import React, { Dispatch } from 'react';
-import './App.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import HomePage from './page/HomePage';
-import TestPage from './page/TestPage';
-import StatementPage from './page/StatementPage';
-import AuthPage from './page/AuthPage';
-import { getApi } from './api';
-import { useDispatch } from 'react-redux';
-import auth from './firebase-auth';
-import messaging from './firebase-messaging';
+import React from 'react'
+import './App.css'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import HomePage from './page/HomePage'
+import TestPage from './page/TestPage'
+import StatementPage from './page/StatementPage'
+import AuthPage from './page/AuthPage'
+import { getApi } from './api'
+import { useDispatch } from 'react-redux'
+import auth from './firebase-auth'
+import messaging from './firebase-messaging'
 
 function App() {
   const dispatch = useDispatch()
@@ -37,7 +37,7 @@ function App() {
   }, [dispatch])
 
   
-  const initMessaging = async () => {
+  const initMessaging = React.useCallback(async () => {
     try {
       const currentToken = await messaging.getToken()
       if (currentToken){
@@ -52,12 +52,12 @@ function App() {
     } catch(err) {
       console.log(`Error while retrieving token: ${err}`)
     }
-  }
+  }, [dispatch])
   
   React.useEffect(() => {
     console.log('Initializing messaging')
     initMessaging()
-  }, [dispatch])
+  }, [initMessaging])
   messaging.onTokenRefresh(() => initMessaging())
   
   console.log('Setting up message receiver')
