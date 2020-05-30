@@ -20,6 +20,7 @@ const PageTemplate: React.FC<RouteComponentProps> = props => {
   }
   return (
     <div>
+      <div>Access token: {accessToken}</div>
       <div>Messaging token: {messagingToken}</div>
       {accessToken && <div>User: {perpetual.profile.name} &nbsp; Account: {perpetual.account.name} &nbsp; Bank: {perpetual.bank.name}</div>}
       {!accessToken && <div>Public</div>}

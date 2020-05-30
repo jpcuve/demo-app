@@ -1,6 +1,5 @@
 import { AnyAction, createStore } from "redux"
 import { Perpetual, defaultPerpetual, Instruction } from "./domain"
-import client from "./remote"
 
 export interface ApplicationState {
   fetching: boolean,
@@ -45,17 +44,4 @@ const rootReducer = (state: ApplicationState = defaultApplicationState, action: 
   return state
 }
 
-let accessToken = localStorage.getItem('TOKEN') || undefined
-export const store = createStore(rootReducer, { ...defaultApplicationState, accessToken })
-if (accessToken){
-  client.get(`/master/perpetual`).then((perpetual: Perpetual) => store.dispatch({type: 'update-perpetual', perpetual}))
-}
-
-store.subscribe(() => {
-  if (store.getState().accessToken){
-    localStorage.setItem('TOKEN', store.getState().accessToken as string)
-  } else {
-    localStorage.removeItem('TOKEN')
-  }
-})
-
+export const store = createStore(rootReducer, { ...defaultApplicationState })

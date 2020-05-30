@@ -3,6 +3,7 @@ console.debug(`Base URL for RPC: ${BASE_URL}`)
 
 const client: any = {
   rpc: async function (endPoint: string, method: string = 'GET', contentType: string = '', body: any | null = null ): Promise<any> {
+    console.log(`Calling endpoint: ${endPoint}`)
     const options: any = {
       method,
       headers: {
