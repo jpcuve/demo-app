@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import HomePage from './page/HomePage';
@@ -35,6 +35,7 @@ function App() {
       unregister()
     }
   }, [dispatch])
+
   
   const initMessaging = async () => {
     try {
@@ -52,8 +53,13 @@ function App() {
       console.log(`Error while retrieving token: ${err}`)
     }
   }
-  initMessaging()
+  
+  React.useEffect(() => {
+    console.log('Initializing messaging')
+    initMessaging()
+  }, [dispatch])
   messaging.onTokenRefresh(() => initMessaging())
+  
   console.log('Setting up message receiver')
   messaging.onMessage((payload: any) => {
     console.log(`Received message: ${JSON.stringify(payload)}`)
