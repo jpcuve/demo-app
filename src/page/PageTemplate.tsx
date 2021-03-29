@@ -39,8 +39,6 @@ const PageTemplate: React.FC<RouteComponentProps> = props => {
         <nav>
           <ul>
             <li><Link to="/home">Home</Link></li>
-            <li><Link to="/auth">Auth</Link></li>
-            {perpetual && <li><Link to="/statement">Statement</Link></li>}
             <li><Link to="/test">Test</Link></li>
           </ul>
         </nav>
